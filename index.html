@@ -1,0 +1,822 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0A6B35">
+<title>Tekisa — petites annonces au Congo</title>
+<style>
+:root{--g:#0A6B35;--g2:#075227;--gl:#E4F2E9;--y:#FBCF14;--yl:#FFF6CC;--r:#C8102E;--rl:#FDE8EB;--ink:#14201A;--mut:#4F5D55;--line:#D5DDD7;--bg:#F2F5F1;--card:#fff;--rad:14px}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans",Arial,sans-serif}
+a{color:inherit;text-decoration:none}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid #1B4DD8;outline-offset:2px;border-radius:6px}
+h1,h2,h3,p{margin:0}
+h1{font-size:1.25rem;line-height:1.25}
+h2{font-size:1.1rem}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+svg.i{width:22px;height:22px;flex:none;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+svg.i.s{width:16px;height:16px}
+svg.i.f{fill:currentColor;stroke:none}
+#app{max-width:1100px;margin:0 auto;min-height:100vh;padding-bottom:84px}
+#app.nobar{padding-bottom:24px}
+#app.act{padding-bottom:96px}
+header.top{position:sticky;top:0;z-index:20;background:var(--g);color:#fff;display:flex;align-items:center;gap:8px;padding:8px 12px}
+.logo{display:flex;align-items:center;gap:8px;font-weight:800;font-size:1.2rem;letter-spacing:-.01em;min-height:44px;margin-right:auto}
+.logo svg{width:34px;height:34px}
+.hbtn{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:0 10px;border:1px solid rgba(255,255,255,.45);border-radius:999px;background:transparent;color:#fff;font-weight:600;font-size:.9rem;max-width:150px}
+.hbtn span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.eco{background:var(--y);color:var(--ink);font-size:.75rem;font-weight:700;padding:2px 8px;border-radius:999px}
+main{padding:12px}
+main:focus,main:focus-visible{outline:none}
+.narrow{max-width:720px;margin:0 auto}
+.sub{display:flex;align-items:center;gap:8px;margin:-4px 0 12px}
+.ib{display:inline-flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;border:0;background:transparent;border-radius:12px}
+.ib:hover{background:rgba(0,0,0,.06)}
+.search{display:flex;gap:8px}
+.field{position:relative;flex:1}
+.field svg{position:absolute;left:12px;top:13px;color:var(--mut)}
+input[type=text],input[type=search],input[type=tel],input[type=number],select,textarea{width:100%;min-height:48px;padding:10px 12px;border:1.5px solid #8A968E;border-radius:12px;background:#fff}
+.field input{padding-left:42px}
+textarea{min-height:110px;resize:vertical}
+label.l{display:block;font-weight:600;margin:14px 0 6px}
+.hint{color:var(--mut);font-size:.875rem}
+.err{color:#A30D24;font-size:.875rem;font-weight:600;margin-top:4px}
+[aria-invalid=true]{border-color:var(--r)!important}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 18px;border-radius:12px;border:1.5px solid var(--g);background:#fff;color:var(--g2);font-weight:700;text-align:center}
+.btn.p{background:var(--g);color:#fff}
+.btn.p:hover{background:var(--g2)}
+.btn.y{background:var(--y);border-color:var(--y);color:var(--ink)}
+.btn.w{background:#128C4B;border-color:#128C4B;color:#fff}
+.btn.d{border-color:var(--r);color:#A30D24}
+.btn.full{width:100%}
+.btn.sm{min-height:44px;padding:0 12px;font-size:.9rem}
+.btn[disabled]{opacity:.5;cursor:not-allowed}
+.sec{margin:20px 0 8px;display:flex;align-items:center;justify-content:space-between;gap:8px}
+.sec a{color:var(--g2);font-weight:700;font-size:.9rem;min-height:44px;display:inline-flex;align-items:center}
+.cats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px}
+.cat{display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 4px;background:var(--card);border:1px solid var(--line);border-radius:var(--rad);text-align:center;font-size:.75rem;font-weight:600;line-height:1.2;min-height:92px}
+.cat:hover{border-color:var(--g)}
+.cat .ci{width:40px;height:40px;border-radius:12px;display:grid;place-items:center}
+.cat small{color:var(--mut);font-weight:500}
+.banner{margin-top:16px;background:var(--g2);color:#fff;border-radius:var(--rad);padding:16px;display:flex;gap:12px;align-items:center;border-left:8px solid var(--y)}
+.banner p{font-size:.9rem;opacity:.95}
+.hs{display:flex;gap:10px;overflow-x:auto;padding-bottom:6px;scroll-snap-type:x proximity}
+.hs>*{flex:0 0 156px;scroll-snap-align:start}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.card{position:relative;background:var(--card);border:1px solid var(--line);border-radius:var(--rad);overflow:hidden}
+.card a.cl{display:block;height:100%}
+.card:hover{border-color:var(--g)}
+.cb{padding:8px 10px 10px}
+.price{font-weight:800;font-size:1.05rem;line-height:1.3}
+.price small{font-weight:600;font-size:.8rem;color:var(--mut)}
+.eur{color:var(--mut);font-size:.8rem;font-weight:500;white-space:nowrap}
+.tt{font-size:.9rem;line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin:2px 0}
+.meta{color:var(--mut);font-size:.8rem}
+.meta svg,.hint svg,.vf svg{vertical-align:-3px}
+.meta>svg:first-child{margin-right:3px}
+.ph{position:relative;aspect-ratio:4/3;display:grid;place-items:center}
+.ph svg.i{width:42%;height:42%;max-width:72px;stroke-width:1.4;opacity:.85}
+.ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.lowd .ph{background:#E3E7E4!important;color:#5A655E!important}
+.bdg{position:absolute;left:8px;top:8px;display:flex;gap:4px}
+.tag{font-size:.7rem;font-weight:800;padding:2px 7px;border-radius:6px;text-transform:uppercase;letter-spacing:.03em}
+.tag.u{background:var(--r);color:#fff}
+.tag.v{background:var(--y);color:var(--ink)}
+.tag.ok{background:var(--gl);color:var(--g2)}
+.tag.md{background:var(--yl);color:#5C4700}
+.tag.sd{background:#E3E7E4;color:#3A443E}
+.fav{position:absolute;right:4px;top:4px;width:44px;height:44px;border:0;border-radius:50%;background:rgba(255,255,255,.92);display:grid;place-items:center;color:var(--ink)}
+.fav[aria-pressed=true]{color:var(--r)}
+.fav[aria-pressed=true] svg{fill:currentColor}
+.card.row a.cl{display:flex}
+.card.row .ph{flex:0 0 120px;aspect-ratio:1}
+.card.row .cb{flex:1;padding-right:48px}
+.listv{display:grid;gap:10px}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:10px 0 6px}
+.chip{flex:none;display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:0 14px;border:1.5px solid var(--line);border-radius:999px;background:#fff;font-weight:600;font-size:.9rem;white-space:nowrap}
+.chip.on{background:var(--g);border-color:var(--g);color:#fff}
+.chip .n{background:var(--y);color:var(--ink);border-radius:999px;padding:0 7px;font-size:.75rem}
+.tools{display:flex;gap:8px;align-items:center;margin:4px 0 10px}
+.tools select{min-height:44px;width:auto;flex:1;padding:6px 10px}
+.box{background:var(--card);border:1px solid var(--line);border-radius:var(--rad);padding:14px;margin-top:12px}
+.tip{background:var(--yl);border:1px solid #E5C200;border-radius:var(--rad);padding:12px 14px;margin-top:12px;display:flex;gap:10px;font-size:.9rem}
+.tip ul{margin:4px 0 0;padding-left:18px}
+.gal{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;border-radius:var(--rad);margin:0 -12px;gap:2px}
+.gal .ph{flex:0 0 100%;scroll-snap-align:center;aspect-ratio:4/3;max-height:420px}
+dl.specs{display:grid;grid-template-columns:auto 1fr;gap:6px 16px;margin:8px 0 0}
+dl.specs dt{color:var(--mut)}
+dl.specs dd{margin:0;font-weight:600}
+.map{height:130px;border-radius:12px;background:#DDE9E1;position:relative;overflow:hidden;margin-top:10px;display:grid;place-items:center;color:var(--r)}
+.map svg.bgm{position:absolute;inset:0;width:100%;height:100%}
+.map svg.i{width:36px;height:36px;position:relative;fill:#fff}
+.seller{display:flex;gap:12px;align-items:center}
+.av{width:52px;height:52px;border-radius:50%;background:var(--g);color:#fff;display:grid;place-items:center;font-weight:800;flex:none}
+.av.lg{width:76px;height:76px;font-size:1.5rem}
+.stars{display:inline-flex;align-items:center;gap:3px;font-weight:700;color:#7A5B00}
+.vf{display:inline-flex;align-items:center;gap:4px;color:var(--g2);font-weight:700;font-size:.85rem}
+.actbar{position:fixed;left:0;right:0;bottom:0;z-index:15;background:#fff;border-top:1px solid var(--line);padding:10px 12px calc(10px + env(safe-area-inset-bottom))}
+.actbar>div{max-width:720px;margin:0 auto;display:flex;gap:8px}
+.actbar .btn{flex:1;padding:0 8px;font-size:.9rem}
+.tabbar{position:fixed;left:0;right:0;bottom:0;z-index:15;background:#fff;border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom)}
+.tabbar ul{list-style:none;margin:0 auto;padding:0;display:flex;max-width:560px}
+.tabbar li{flex:1}
+.tabbar a{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-height:60px;font-size:.7rem;font-weight:600;color:var(--mut)}
+.tabbar a[aria-current]{color:var(--g2)}
+.tabbar a.sell span.c{width:44px;height:36px;border-radius:12px;background:var(--y);color:var(--ink);display:grid;place-items:center}
+.dot{background:var(--r);color:#fff;border-radius:999px;font-size:.7rem;padding:0 6px;font-weight:700}
+.state{text-align:center;padding:40px 16px;color:var(--mut)}
+.state svg.i{width:56px;height:56px;color:var(--g);stroke-width:1.5}
+.state h2{color:var(--ink);margin:10px 0 4px}
+.state .btn{margin-top:14px}
+.sk{background:linear-gradient(90deg,#E3E8E4 25%,#EEF2EF 40%,#E3E8E4 60%);background-size:300% 100%;animation:sk 1.2s infinite linear;border-radius:12px}
+@keyframes sk{to{background-position:-150% 0}}
+@media (prefers-reduced-motion:reduce){.sk{animation:none}*{scroll-behavior:auto!important}}
+.overlay{position:fixed;inset:0;z-index:40;background:rgba(10,20,14,.55);display:flex;align-items:flex-end;justify-content:center}
+.sheet{background:#fff;width:100%;max-width:560px;max-height:88vh;overflow:auto;border-radius:18px 18px 0 0;padding:14px 16px calc(18px + env(safe-area-inset-bottom))}
+.sheet .sh{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+.opt{display:flex;align-items:center;gap:10px;width:100%;min-height:48px;padding:8px 10px;border:0;border-bottom:1px solid var(--line);background:#fff;text-align:left;font-weight:600}
+.opt[aria-pressed=true],.opt[aria-checked=true]{color:var(--g2)}
+.opt .ck{margin-left:auto;color:var(--g)}
+.chk{display:flex;align-items:center;gap:10px;min-height:48px;font-weight:600}
+.chk input{width:22px;height:22px;accent-color:var(--g)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.prog{height:8px;background:#DCE3DE;border-radius:99px;overflow:hidden;margin:6px 0 4px}
+.prog i{display:block;height:100%;background:var(--g);border-radius:99px}
+.pick{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.pick button{display:flex;align-items:center;gap:8px;min-height:56px;padding:8px 10px;border:1.5px solid var(--line);border-radius:12px;background:#fff;text-align:left;font-weight:600;font-size:.875rem;line-height:1.2}
+.pick button[aria-pressed=true]{border-color:var(--g);background:var(--gl)}
+.thumbs{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.thumbs .th{position:relative;aspect-ratio:1;border-radius:10px;overflow:hidden;background:#E3E7E4}
+.thumbs img{width:100%;height:100%;object-fit:cover}
+.thumbs .th button{position:absolute;right:0;top:0;width:44px;height:44px;border:0;background:transparent;color:#fff;display:grid;place-items:start end;padding:4px}
+.thumbs .th button span{background:rgba(0,0,0,.7);border-radius:50%;width:24px;height:24px;display:grid;place-items:center}
+.add{aspect-ratio:1;border:2px dashed #8A968E;border-radius:10px;display:grid;place-items:center;color:var(--g2);cursor:pointer;background:#fff}
+.foot{display:flex;gap:8px;margin-top:20px}
+.foot .btn{flex:1}
+.rw{display:flex;gap:12px;align-items:center}
+.li{display:flex;gap:12px;align-items:center;padding:12px;background:#fff;border:1px solid var(--line);border-radius:var(--rad);margin-top:8px;min-height:64px}
+.li .g{flex:1;min-width:0}
+.li .g p{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tabs{display:flex;gap:8px;margin-bottom:8px}
+.tabs button{flex:1;min-height:44px;border:0;border-bottom:3px solid transparent;background:transparent;font-weight:700;color:var(--mut)}
+.tabs button[aria-selected=true]{color:var(--g2);border-color:var(--g)}
+.msgs{display:flex;flex-direction:column;gap:8px;padding-bottom:150px}
+.m{max-width:80%;padding:8px 12px;border-radius:14px;background:#fff;border:1px solid var(--line)}
+.m.me{align-self:flex-end;background:var(--g);border-color:var(--g);color:#fff}
+.m small{display:block;opacity:.8;font-size:.7rem;text-align:right}
+.composer{position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:1px solid var(--line);padding:8px 12px calc(8px + env(safe-area-inset-bottom));z-index:15}
+.composer>div{max-width:720px;margin:0 auto}
+.composer form{display:flex;gap:8px}
+.tl{list-style:none;padding:0;margin:8px 0 0}
+.tl li{display:flex;gap:12px;padding:0 0 18px;position:relative}
+.tl li:before{content:"";position:absolute;left:15px;top:32px;bottom:0;width:2px;background:var(--line)}
+.tl li:last-child:before{display:none}
+.tl .b{width:32px;height:32px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;flex:none;background:#fff;color:var(--mut);font-weight:700;font-size:.85rem}
+.tl li.done .b{background:var(--g);border-color:var(--g);color:#fff}
+.tl li.cur .b{border-color:var(--g);color:var(--g2)}
+.tl li.done:before{background:var(--g)}
+.radio{display:flex;align-items:center;gap:10px;min-height:56px;padding:8px 12px;border:1.5px solid var(--line);border-radius:12px;margin-top:8px;font-weight:600;background:#fff}
+.radio input{width:22px;height:22px;accent-color:var(--g)}
+.radio small{display:block;font-weight:500;color:var(--mut)}
+.radio .pr{margin-left:auto;font-weight:800;white-space:nowrap}
+.sum{display:flex;justify-content:space-between;gap:12px;padding:6px 0}
+.sum.t{border-top:1px solid var(--line);font-weight:800;margin-top:4px;padding-top:10px}
+.offl{background:var(--r);color:#fff;text-align:center;font-size:.85rem;font-weight:700;padding:6px}
+#toast{position:fixed;left:50%;bottom:100px;transform:translateX(-50%);z-index:60;background:#14201A;color:#fff;padding:10px 16px;border-radius:12px;font-weight:600;font-size:.9rem;max-width:90vw;opacity:0;pointer-events:none;transition:opacity .2s}
+#toast.on{opacity:1}
+.otp{letter-spacing:.5em;text-align:center;font-size:1.4rem;font-weight:800}
+.pfx{display:flex;gap:8px}
+.pfx b{display:grid;place-items:center;min-height:48px;padding:0 12px;border:1.5px solid #8A968E;border-radius:12px;background:#EEF2EF}
+@media (min-width:700px){
+ .cats{grid-template-columns:repeat(6,1fr)}
+ .grid{grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:14px}
+ .hs>*{flex-basis:200px}
+ .gal{margin:0}
+ .overlay{align-items:center}
+ .sheet{border-radius:18px}
+ h1{font-size:1.5rem}
+}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<div id="toast" role="status" aria-live="polite"></div>
+<script>
+'use strict';
+/* ===== Constantes marché ===== */
+const XAF_PER_EUR = 655.957;      // parité fixe FCFA/EUR
+const ESCROW_FEE = 0.02;          // commission séquestre (hypothèse)
+const DEMO_OTP = '1234';
+const BRAND = 'Tekisa';
+
+/* ===== Icônes (SVG linéaires) ===== */
+const IC = {
+search:'<circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>',
+heart:'<path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.600-7 10-7 10z"/>',
+plus:'<path d="M12 5v14M5 12h14"/>',
+chat:'<path d="M4 5h16v11H9l-5 4z"/>',
+user:'<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/>',
+pin:'<path d="M12 21s7-6.2 7-11.500A7 7 0 0 0 5 9.500C5 14.800 12 21 12 21z"/><circle cx="12" cy="9.500" r="2.500"/>',
+back:'<path d="m15 5-7 7 7 7"/>',
+next:'<path d="m9 5 7 7-7 7"/>',
+filter:'<path d="M4 6h16M7 12h10M10 18h4"/>',
+grid:'<rect x="4" y="4" width="7" height="7" rx="1"/><rect x="13" y="4" width="7" height="7" rx="1"/><rect x="4" y="13" width="7" height="7" rx="1"/><rect x="13" y="13" width="7" height="7" rx="1"/>',
+list:'<path d="M8 6h12M8 12h12M8 18h12M4 6h.01M4 12h.01M4 18h.01"/>',
+star:'<path d="m12 3 2.700 5.600 6.100.800-4.500 4.300 1.100 6.100L12 16.900 6.600 19.800l1.100-6.100L3.200 9.400l6.100-.800z"/>',
+shield:'<path d="M12 3 5 6v6c0 4.500 3 7.600 7 9 4-1.400 7-4.500 7-9V6z"/><path d="m9 12 2 2 4-4"/>',
+flag:'<path d="M5 21V4h12l-2 4 2 4H5"/>',
+call:'<path d="M5 4h4l2 5-2.500 1.500a11 11 0 0 0 5 5L15 13l5 2v4a1 1 0 0 1-1 1A16 16 0 0 1 4 5a1 1 0 0 1 1-1z"/>',
+wa:'<path d="M12 3a9 9 0 0 0-7.700 13.600L3 21l4.500-1.200A9 9 0 1 0 12 3z"/><path d="M9 8.500c0 3 2.500 6 6 6.500l1-1.500-2-1-1 .800c-1-.500-1.800-1.300-2.300-2.300l.800-1-1-2z"/>',
+camera:'<path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.500"/>',
+check:'<path d="m5 12 5 5 9-10"/>',
+x:'<path d="M6 6l12 12M18 6 6 18"/>',
+globe:'<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.500 3 14.500 0 18M12 3c-3 3.500-3 14.500 0 18"/>',
+wifioff:'<path d="M3 3l18 18M5 12.500a10 10 0 0 1 4-2.600M19 12.500a10 10 0 0 0-5-3M8.500 16a5 5 0 0 1 7 0M12 20h.01"/>',
+lock:'<rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>',
+up:'<path d="M12 19V5M6 11l6-6 6 6"/>',
+clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+truck:'<path d="M3 6h11v10H3zM14 10h4l3 3v3h-7z"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/>',
+trash:'<path d="M5 7h14M10 7V4h4v3M7 7l1 13h8l1-13"/>',
+edit:'<path d="M4 20h4L19 9l-4-4L4 16z"/>',
+alert:'<path d="M12 4 2.500 20h19z"/><path d="M12 10v4M12 17h.01"/>',
+home:'<path d="M4 11 12 4l8 7v9h-5v-6H9v6H4z"/>',
+phone:'<rect x="7" y="3" width="10" height="18" rx="2"/><path d="M11 18h2"/>',
+car:'<path d="M5 12l2-5h10l2 5v6h-3v-2H8v2H5z"/><path d="M5 12h14M8 15h.01M16 15h.01"/>',
+bolt:'<path d="M13 3 5 14h6l-1 7 8-11h-6z"/>',
+fridge:'<rect x="6" y="3" width="12" height="18" rx="2"/><path d="M6 10h12M9 6v2M9 13v3"/>',
+sofa:'<path d="M5 11V8a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v3"/><path d="M3 12a2 2 0 0 1 4 0v2h10v-2a2 2 0 0 1 4 0v5H3zM6 17v2M18 17v2"/>',
+shirt:'<path d="M8 4 3 7l2 4 2-1v10h10V10l2 1 2-4-5-3a4 4 0 0 1-8 0z"/>',
+brief:'<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5h6v2M3 13h18"/>',
+wrench:'<path d="M20 7a5 5 0 0 1-6.500 4.800L7 18.500a2 2 0 0 1-3-3l6.700-6.500A5 5 0 0 1 17 4l-3 3 1 2 2 1z"/>',
+leaf:'<path d="M5 19c0-9 5-14 15-14 0 10-5 15-14 14zM5 19l9-9"/>',
+baby:'<circle cx="12" cy="9" r="5"/><path d="M10 9h.01M14 9h.01M10.500 11.500c1 .700 2 .700 3 0M6 21c0-3 3-5 6-5s6 2 6 5"/>'
+};
+const ic = (n, c='') => `<svg class="i ${c}" viewBox="0 0 24 24" aria-hidden="true" focusable="false">${IC[n]||''}</svg>`;
+const LOGO = `<svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="10" fill="#FBCF14"/><path d="M9 21 20 9h10v10L18 31z" fill="#0A6B35"/><circle cx="25.500" cy="13.500" r="2.500" fill="#C8102E"/></svg>`;
+
+/* ===== Référentiels ===== */
+const CITIES = [
+ {id:'bzv',n:'Brazzaville',areas:['Makélékélé','Bacongo','Poto-Poto','Moungali','Ouenzé','Talangaï','Mfilou','Madibou','Djiri']},
+ {id:'pnr',n:'Pointe-Noire',areas:['Lumumba','Mvou-Mvou','Tié-Tié','Loandjili','Mongo-Mpoukou','Ngoyo']},
+ {id:'dol',n:'Dolisie',areas:[]},{id:'nky',n:'Nkayi',areas:[]},{id:'oyo',n:'Oyo',areas:[]},{id:'oue',n:'Ouesso',areas:[]}
+];
+const CATS = [
+ {id:'tel',n:'Téléphones et électronique',s:'Téléphones',i:'phone',bg:'#DCEBFF',fg:'#123E8C'},
+ {id:'auto',n:'Voitures et motos',s:'Voitures, motos',i:'car',bg:'#FFE3D6',fg:'#8A3209'},
+ {id:'immo',n:'Immobilier',s:'Immobilier',i:'home',bg:'#E4F2E9',fg:'#075227'},
+ {id:'nrj',n:'Groupes, solaire et onduleurs',s:'Énergie, solaire',i:'bolt',bg:'#FFF3BF',fg:'#5C4700'},
+ {id:'elec',n:'Électroménager',s:'Électroménager',i:'fridge',bg:'#DDF3F5',fg:'#0B5560'},
+ {id:'home',n:'Meubles et maison',s:'Meubles, maison',i:'sofa',bg:'#EFE4D8',fg:'#5E3B14'},
+ {id:'mode',n:'Mode et beauté',s:'Mode, beauté',i:'shirt',bg:'#FBE1EE',fg:'#8A1450'},
+ {id:'job',n:'Emploi',s:'Emploi',i:'brief',bg:'#E6E3FA',fg:'#3A2A8C'},
+ {id:'serv',n:'Services',s:'Services',i:'wrench',bg:'#E3E7E4',fg:'#2E3A33'},
+ {id:'agri',n:'Agriculture et alimentation',s:'Agriculture',i:'leaf',bg:'#E2F3CF',fg:'#35560B'},
+ {id:'kids',n:'Enfants',s:'Enfants',i:'baby',bg:'#FFE9C7',fg:'#7A4A00'}
+];
+const SELLERS = [
+ {id:'s1',n:'Mireille Ngoma',c:'bzv',a:'Poto-Poto',v:1,r:4.8,k:37,y:2022,p:'242060000001'},
+ {id:'s2',n:'Garage Mabiala Auto',c:'bzv',a:'Bacongo',v:1,r:4.6,k:58,y:2021,p:'242060000002'},
+ {id:'s3',n:'Christ Okemba',c:'bzv',a:'Talangaï',v:0,r:4.1,k:9,y:2024,p:'242050000003'},
+ {id:'s4',n:'Solaire Congo Énergie',c:'bzv',a:'Moungali',v:1,r:4.9,k:112,y:2020,p:'242060000004'},
+ {id:'s5',n:'Prisca Loemba',c:'pnr',a:'Lumumba',v:1,r:4.7,k:24,y:2023,p:'242050000005'},
+ {id:'s6',n:'Junior Massamba',c:'bzv',a:'Ouenzé',v:0,r:3.9,k:6,y:2025,p:'242060000006'},
+ {id:'s7',n:'Immo Atlantique',c:'pnr',a:'Ngoyo',v:1,r:4.5,k:41,y:2021,p:'242050000007'},
+ {id:'s8',n:'Ferme Nkayi Bio',c:'nky',a:'',v:1,r:4.6,k:15,y:2023,p:'242060000008'},
+ {id:'s9',n:'Arsène Bouanga',c:'bzv',a:'Makélékélé',v:0,r:4.2,k:11,y:2024,p:'242050000009'},
+ {id:'s10',n:'Froid Service Mfilou',c:'bzv',a:'Mfilou',v:1,r:4.7,k:33,y:2022,p:'242060000010'}
+];
+/* flags: d=livraison u=urgent v=VIP f=meublé/expat ; unit: mo=/mois, from=à partir de, h=/séance */
+const A = (id,t,cat,price,unit,city,area,lm,cond,seller,fl,days,desc,specs) =>
+ ({id,t,cat,price,unit,city,area,lm,cond,seller,deliv:fl.includes('d'),urgent:fl.includes('u'),vip:fl.includes('v'),furn:fl.includes('f'),days,desc,specs,ph:2+id%3});
+const ADS = [
+A(1,'Samsung Galaxy A14 64 Go, double SIM','tel',85000,'','bzv','Poto-Poto','Près du marché de Poto-Poto','used','s1','d',0,'Téléphone en très bon état, utilisé 8 mois. Vendu avec chargeur et coque. Batterie tient la journée. Test possible sur place.',[['Marque','Samsung'],['Mémoire','64 Go'],['RAM','4 Go'],['Couleur','Noir']]),
+A(2,'Moto Haojue 125 cc, papiers en règle','auto',550000,'','bzv','Talangaï','Après l’hôpital de Talangaï','used','s3','u',1,'Moto Haojue 125 en bon état de marche, pneus neufs, carte grise disponible. Idéale pour taxi-moto. Prix à débattre légèrement.',[['Marque','Haojue'],['Cylindrée','125 cc'],['Année','2021'],['Kilométrage','18 000 km']]),
+A(3,'Panneau solaire 300 W monocristallin','nrj',70000,'','bzv','Moungali','Avenue de la Paix, vers le rond-point Moungali','new','s4','d',0,'Panneau neuf, garantie 12 mois. Installation possible à domicile (en supplément). Stock disponible.',[['Puissance','300 W'],['Type','Monocristallin'],['Garantie','12 mois']]),
+A(4,'Groupe électrogène 5 kVA essence','nrj',260000,'','bzv','Ouenzé','Près du marché de Ouenzé','used','s6','',3,'Groupe 5 kVA démarrage électrique, peu servi. Parfait pour maison ou petite boutique pendant les coupures.',[['Puissance','5 kVA'],['Carburant','Essence'],['Démarrage','Électrique']]),
+A(5,'Appartement 2 pièces à louer','immo',150000,'mo','bzv','Poto-Poto','À 5 min de l’avenue de la Paix','', 's9','',2,'Salon + 1 chambre, douche interne, compteur d’eau et d’électricité individuels. Caution 3 mois. Parcelle clôturée.',[['Type','Location'],['Pièces','2'],['Caution','3 mois'],['Meublé','Non']]),
+A(6,'Appartement meublé 3 pièces, proche Côte Sauvage','immo',450000,'mo','pnr','Ngoyo','Vers la Côte Sauvage','', 's7','f',1,'Appartement meublé et climatisé, groupe électrogène, forage, gardien 24 h/24. Convient aux expatriés et missions longues.',[['Type','Location'],['Pièces','3'],['Meublé','Oui'],['Groupe électrogène','Oui'],['Gardiennage','24 h/24']]),
+A(7,'Toyota Corolla 2012, importée, climatisée','auto',4500000,'','bzv','Bacongo','Près du marché Total','used','s2','v',0,'Corolla venue d’Europe, dédouanée, boîte manuelle, clim OK. Visite et essai au garage. Papiers complets.',[['Marque','Toyota'],['Année','2012'],['Boîte','Manuelle'],['Carburant','Essence'],['Kilométrage','142 000 km']]),
+A(8,'Réfrigérateur 2 portes 210 L','elec',120000,'','bzv','Mfilou','Près du marché de Mfilou','used','s10','d',4,'Frigo révisé par nos soins, froid garanti 3 mois. Livraison possible dans Brazzaville.',[['Capacité','210 L'],['Garantie','3 mois']]),
+A(9,'Réparation et entretien de climatiseurs','serv',15000,'from','bzv','Mfilou','Déplacement dans tout Brazzaville','', 's10','',1,'Recharge de gaz, nettoyage, dépannage split et armoire. Devis gratuit. Intervention le jour même selon disponibilité.',[['Zone','Brazzaville'],['Devis','Gratuit']]),
+A(10,'iPhone 11 64 Go, batterie 86 %','tel',165000,'','pnr','Lumumba','Près du rond-point Lumumba','used','s5','u',0,'iPhone 11 débloqué tous opérateurs, aucun choc. Vendu avec câble. Urgent, cause voyage.',[['Marque','Apple'],['Mémoire','64 Go'],['Batterie','86 %']]),
+A(11,'Tecno Spark 20 neuf sous emballage','tel',78000,'','bzv','Ouenzé','Près du marché de Ouenzé','new','s6','',2,'Téléphone neuf scellé, 128 Go, garantie boutique 6 mois.',[['Marque','Tecno'],['Mémoire','128 Go'],['Garantie','6 mois']]),
+A(12,'Kit onduleur hybride 3 kVA + 2 batteries','nrj',380000,'','bzv','Moungali','Avenue de la Paix','new','s4','vd',1,'Kit complet prêt à poser : onduleur hybride 3 kVA, 2 batteries 200 Ah, câblage. Autonomie d’une nuit pour éclairage, TV et ventilateurs.',[['Puissance','3 kVA'],['Batteries','2 × 200 Ah'],['Garantie','12 mois']]),
+A(13,'Toyota RAV4 2010, 4×4','auto',5200000,'','pnr','Tié-Tié','Près du grand marché','used','s5','',5,'RAV4 en bon état, 4 roues motrices, clim, entretien suivi. Idéal routes de l’intérieur.',[['Marque','Toyota'],['Année','2010'],['Boîte','Automatique'],['Kilométrage','168 000 km']]),
+A(14,'Pièces détachées Toyota d’occasion','auto',35000,'from','bzv','Bacongo','Près du marché Total','used','s2','d',6,'Phares, alternateurs, démarreurs, amortisseurs pour Corolla, Carina, RAV4. Dites-nous la pièce recherchée.',[['Marques','Toyota'],['État','Occasion testée']]),
+A(15,'Terrain 400 m² avec titre foncier','immo',6500000,'','bzv','Djiri','Zone de Kintélé, à 300 m du goudron','', 's9','',7,'Parcelle 20 × 20 bornée, titre foncier disponible, quartier en plein développement. Visite sur rendez-vous.',[['Type','Vente'],['Surface','400 m²'],['Document','Titre foncier']]),
+A(16,'Villa meublée 4 chambres avec piscine','immo',1200000,'mo','pnr','Ngoyo','Quartier résidentiel, proche de la plage','', 's7','vf',2,'Villa haut standing pour expatriés : 4 chambres climatisées, piscine, groupe électrogène, forage, gardien. Bail société accepté.',[['Type','Location'],['Chambres','4'],['Meublé','Oui'],['Piscine','Oui']]),
+A(17,'Canapé d’angle 5 places','home',180000,'','bzv','Makélékélé','Près du marché Bourreau','used','s9','',3,'Canapé d’angle en tissu gris, mousse ferme, très propre. À enlever sur place.',[['Places','5'],['Matière','Tissu']]),
+A(18,'Lit 2 places avec matelas neuf','home',95000,'','bzv','Talangaï','Près de l’hôpital de Talangaï','new','s3','u',0,'Lit en bois massif 140 × 190 avec matelas orthopédique neuf. Fabrication locale solide.',[['Dimensions','140 × 190'],['Matière','Bois massif']]),
+A(19,'Robes en pagne wax sur mesure','mode',12000,'from','bzv','Poto-Poto','Près du marché de Poto-Poto','new','s1','d',1,'Couture sur mesure en 3 jours : robes, ensembles, tenues de cérémonie. Apportez votre pagne ou choisissez en atelier.',[['Délai','3 jours'],['Tissu','Wax']]),
+A(20,'Perruques naturelles et mèches','mode',25000,'','bzv','Bacongo','Près du marché Total','new','s1','',4,'Perruques lisses et bouclées, plusieurs longueurs. Pose possible au salon.',[['Type','Cheveux naturels']]),
+A(21,'Chauffeur poids léger (CDD 6 mois)','job',150000,'mo','pnr','Mvou-Mvou','Zone portuaire','', 's5','',2,'Société de logistique recherche chauffeur avec permis B, 3 ans d’expérience, bonne connaissance de Pointe-Noire.',[['Contrat','CDD 6 mois'],['Permis','B'],['Expérience','3 ans']]),
+A(22,'Vendeuse en boutique de téléphones','job',90000,'mo','bzv','Poto-Poto','Avenue de la Paix','', 's1','',5,'Recherche vendeuse sérieuse et accueillante, français et lingala exigés. Salaire fixe + commission.',[['Contrat','CDI'],['Langues','Français, lingala']]),
+A(23,'Cours de maths et physique à domicile','serv',5000,'h','bzv','Moungali','Déplacement Moungali, Poto-Poto, Ouenzé','', 's9','',3,'Étudiant en master donne cours du collège à la terminale. Préparation BEPC et bac.',[['Niveau','Collège, lycée'],['Durée','2 h par séance']]),
+A(24,'Livraison express à moto','serv',1000,'from','bzv','Ouenzé','Tout Brazzaville','', 's6','',0,'Coursier disponible 7 j/7 pour colis, repas et documents. Paiement à la livraison.',[['Zone','Brazzaville'],['Horaires','7 h – 20 h']]),
+A(25,'Farine de manioc (foufou), sac de 50 kg','agri',22000,'','nky','','Près de la gare de Nkayi','new','s8','d',1,'Foufou blanc bien séché, production de la ferme. Expédition par train ou bus vers Brazzaville et Pointe-Noire.',[['Poids','50 kg'],['Origine','Bouenza']]),
+A(26,'Maïs sec, sac de 100 kg','agri',28000,'','dol','','Près du grand marché de Dolisie','new','s8','',6,'Maïs grain sec pour alimentation ou élevage. Prix dégressif à partir de 10 sacs.',[['Poids','100 kg']]),
+A(27,'Poisson fumé d’Oyo, carton de 10 kg','agri',30000,'','oyo','','Au port d’Oyo','new','s8','',2,'Poisson d’eau douce fumé au bois, bien sec, se conserve plusieurs semaines.',[['Poids','10 kg']]),
+A(28,'Poussette bébé pliable','kids',35000,'','bzv','Moungali','Près du rond-point Moungali','used','s3','',4,'Poussette légère avec capote et panier, très bon état.',[['Âge','0 – 3 ans']]),
+A(29,'Lot de vêtements enfant 2 – 4 ans','kids',8000,'','bzv','Talangaï','Près de l’hôpital de Talangaï','used','s3','',8,'15 pièces propres : t-shirts, shorts, robes.',[['Taille','2 – 4 ans'],['Pièces','15']]),
+A(30,'Congélateur coffre 300 L','elec',195000,'','pnr','Loandjili','Près du marché de Loandjili','used','s5','',3,'Congélateur idéal pour commerce de poisson ou boissons, froid rapide.',[['Capacité','300 L']]),
+A(31,'TV LED 43 pouces Full HD','tel',135000,'','bzv','Ouenzé','Près du marché de Ouenzé','used','s6','u',1,'Télévision 43" avec télécommande, ports HDMI et USB. Image impeccable.',[['Taille','43"'],['Résolution','Full HD']])
+];
+const REVIEWS = [
+ ['Bienvenu M.',5,'Vendeur sérieux, article conforme à l’annonce.'],
+ ['Grâce N.',4,'Bon contact sur WhatsApp, rendez-vous respecté.'],
+ ['Patrick O.',5,'Livraison rapide, je recommande.'],
+ ['Sandrine K.',3,'Article correct mais un peu de retard au rendez-vous.']
+];
+const PROMOS = [
+ {id:'up',n:'Remonter',d:'Votre annonce repasse en tête de liste une fois.',p:500},
+ {id:'urg',n:'Urgent',d:'Badge rouge « Urgent » pendant 7 jours.',p:1500},
+ {id:'vip',n:'VIP',d:'Mise en avant sur l’accueil pendant 7 jours.',p:3000}
+];
+const PAY = [{id:'momo',n:'MTN Mobile Money (MoMo)'},{id:'airtel',n:'Airtel Money'}];
+
+/* ===== Traductions (clé = texte français) ===== */
+const L = {
+ln:{'Accueil':'Ebandeli','Favoris':'Oyo olingi','Vendre':'Tekisa','Messages':'Mikanda','Profil':'Ngai','Rechercher':'Luka','Que cherchez-vous ?':'Ozali koluka nini ?','Catégories':'Mitindo','Près de chez vous':'Pene na yo','Urgent':'Noki','Nouveautés':'Ya sika','Tout voir':'Tala nyonso','Toutes les villes':'Bingumba nyonso','Ville':'Engumba','Arrondissement':'Kartie','Prix':'Ntalo','Neuf':'Ya sika','Occasion':'Ya kala','Filtres':'Pona','Écrire sur WhatsApp':'Koma na WhatsApp','Appeler':'Benga','Discuter':'Solola','Signaler':'Funda','Vendeur vérifié':'Moteki andimami','Continuer':'Koba','Retour':'Zonga','Publier':'Bimisa','Se connecter':'Kota','Mes annonces':'Biloko na ngai','Annonces similaires':'Biloko ekokani','Description':'Ndimbola','Langue':'Lokota','Vendez plus vite avec WhatsApp':'Tekisa noki na WhatsApp','Publiez en 2 minutes, les acheteurs vous écrivent directement.':'Bimisa na miniti 2, basombi bakokomela yo mbala moko.','Déposer une annonce':'Tia eloko ya koteka','Conseils de sécurité':'Toli ya bokengi','Ne payez jamais à l’avance.':'Kofuta liboso te.','Rencontrez-vous dans un lieu public.':'Bokutana na esika ya bato ebele.','Aujourd’hui':'Lelo','Hier':'Lobi','Aucune annonce trouvée':'Eloko moko te emonani','Encore disponible ?':'Ezali naino ?','Le prix est négociable ?':'Ntalo ekoki kokita ?','Payer en sécurité':'Futa na bokengi','Se déconnecter':'Bima'},
+ktu:{'Accueil':'Luyantiku','Favoris':'Ya mono zola','Vendre':'Teka','Messages':'Bansangu','Profil':'Mono','Rechercher':'Sosa','Que cherchez-vous ?':'Nge ke sosa nki ?','Catégories':'Mitindu','Près de chez vous':'Pene-pene na nge','Urgent':'Nswalu','Nouveautés':'Ya mpa','Tout voir':'Tala yonso','Toutes les villes':'Bambanza yonso','Ville':'Mbanza','Arrondissement':'Kartie','Prix':'Ntalu','Neuf':'Ya mpa','Occasion':'Ya ntama','Filtres':'Pona','Écrire sur WhatsApp':'Sonika na WhatsApp','Appeler':'Binga','Discuter':'Solula','Signaler':'Funda','Vendeur vérifié':'Muteki ya kundima','Continuer':'Landa','Retour':'Vutuka','Publier':'Basisa','Se connecter':'Kota','Mes annonces':'Bima na mono','Annonces similaires':'Bima ya mutindu mosi','Description':'Ntendula','Langue':'Ndinga','Vendez plus vite avec WhatsApp':'Teka nswalu na WhatsApp','Déposer une annonce':'Tula kima ya kuteka','Conseils de sécurité':'Bandongisila ya lutaninu','Ne payez jamais à l’avance.':'Kufuta ntete ve.','Rencontrez-vous dans un lieu public.':'Beno kutana na kisika ya bantu mingi.','Aujourd’hui':'Bubu','Hier':'Mazono','Aucune annonce trouvée':'Kima mosi ve me monana','Encore disponible ?':'Yo kele diaka ?','Le prix est négociable ?':'Ntalu lenda kulumuka ?','Payer en sécurité':'Futa na lutaninu','Se déconnecter':'Basika'}
+};
+const LANGS = [['fr','Français'],['ln','Lingála'],['ktu','Kituba']];
+
+/* ===== État (en mémoire) ===== */
+const emptyDraft = () => ({step:1,cat:'',photos:[],title:'',price:'',cond:'',desc:'',city:'bzv',area:'',lm:'',phone:'',wa:true,call:true,editId:null});
+const emptyFilters = () => ({q:'',cat:'',min:'',max:'',area:'',cond:'',verified:false,deliv:false,furn:false,sort:'new'});
+const state = {
+ route:[''],lang:'fr',city:'all',favs:new Set([7,12]),user:null,lowData:false,offline:false,loading:false,
+ filters:emptyFilters(),view:'grid',sheet:null,errors:{},draft:emptyDraft(),posted:null,
+ login:{step:1,phone:'',code:'',ret:'#/me'},mineTab:'ads',
+ myAds:[
+  {id:'m1',t:'Ventilateur sur pied Binatone',cat:'elec',price:18000,status:'active',views:64,boost:null,d:{cond:'used',desc:'Ventilateur 3 vitesses, fonctionne très bien.',city:'bzv',area:'Moungali',lm:'Près du rond-point Moungali'}},
+  {id:'m2',t:'Ordinateur portable HP 15, 8 Go RAM',cat:'tel',price:210000,status:'mod',views:0,boost:null,d:{cond:'used',desc:'HP 15 pouces, Core i5, SSD 256 Go, batterie 3 h.',city:'bzv',area:'Poto-Poto',lm:'Avenue de la Paix'}},
+  {id:'m3',t:'Table à manger 6 chaises',cat:'home',price:140000,status:'sold',views:231,boost:null,d:{cond:'used',desc:'Table en bois avec 6 chaises.',city:'bzv',area:'Bacongo',lm:'Près du marché Total'}}],
+ chats:[
+  {id:'c1',seller:'s2',ad:7,unread:1,msgs:[{me:1,x:'Bonjour, la Corolla est encore disponible ?',h:'09:12'},{me:0,x:'Bonjour, oui. Vous pouvez passer au garage à Bacongo.',h:'09:20'}]},
+  {id:'c2',seller:'s4',ad:3,unread:0,msgs:[{me:1,x:'Vous livrez à Talangaï ?',h:'Hier'},{me:0,x:'Oui, livraison 2 000 FCFA.',h:'Hier'}]},
+  {id:'c3',seller:'s7',ad:6,unread:0,msgs:[{me:0,x:'Bonjour, la visite est possible samedi matin.',h:'Lun.'}]}],
+ deals:{},promo:{opt:'up',pay:'momo',done:false},escrowPay:'momo'
+};
+
+/* ===== Utilitaires ===== */
+const t = s => (L[state.lang] && L[state.lang][s]) || s;
+const esc = s => String(s==null?'':s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const nb = n => String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+const fcfa = n => nb(n) + ' FCFA';
+const eur = n => '≈ ' + nb(n / XAF_PER_EUR) + ' €';
+const norm = s => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+const cat = id => CATS.find(c => c.id === id) || CATS[0];
+const city = id => CITIES.find(c => c.id === id);
+const seller = id => SELLERS.find(s => s.id === id);
+const ad = id => ADS.find(a => a.id === +id);
+const ago = d => d === 0 ? t('Aujourd’hui') : d === 1 ? t('Hier') : `Il y a ${d} j`;
+const initials = n => n.split(' ').slice(0,2).map(w => w[0]).join('').toUpperCase();
+const place = a => (a.area ? a.area + ', ' : '') + city(a.city).n;
+const setPath = (o, p, v) => { const k = p.split('.'); const last = k.pop(); k.reduce((x, y) => x[y], o)[last] = v; };
+const $ = s => document.querySelector(s);
+function priceHtml(a, big){
+ const u = a.unit === 'mo' ? ' <small>/mois</small>' : a.unit === 'h' ? ' <small>/séance</small>' : '';
+ const pre = a.unit === 'from' ? '<small>à partir de</small> ' : '';
+ const e = (a.cat === 'auto' || a.cat === 'immo') ? ` <span class="eur">${eur(a.price)}</span>` : '';
+ return `<div class="price"${big?' style="font-size:1.5rem"':''}>${pre}${fcfa(a.price)}${u}${e}</div>`;
+}
+function waLink(a){
+ const s = seller(a.seller);
+ return `https://wa.me/${s.p}?text=` + encodeURIComponent(`Bonjour, je suis intéressé(e) par votre annonce « ${a.t} » (${fcfa(a.price)}) sur ${BRAND}. Est-elle toujours disponible ?`);
+}
+let toastT;
+function toast(m){ const el = $('#toast'); if(!el) return; el.textContent = m; el.classList.add('on'); clearTimeout(toastT); toastT = setTimeout(() => el.classList.remove('on'), 2600); }
+function go(h){ if(location.hash === h) onRoute(); else location.hash = h; }
+
+/* ===== Filtrage ===== */
+function filtered(){
+ const f = state.filters, q = norm(f.q.trim());
+ let r = ADS.filter(a =>
+  (state.city === 'all' || a.city === state.city) &&
+  (!f.cat || a.cat === f.cat) &&
+  (!q || norm(a.t + ' ' + a.desc + ' ' + cat(a.cat).n + ' ' + a.area).includes(q)) &&
+  (!f.min || a.price >= +f.min) && (!f.max || a.price <= +f.max) &&
+  (!f.area || a.area === f.area) &&
+  (!f.cond || a.cond === f.cond) &&
+  (!f.verified || seller(a.seller).v) &&
+  (!f.deliv || a.deliv) &&
+  (!(f.furn && f.cat === 'immo') || a.furn));
+ if(f.sort === 'asc') r.sort((a,b) => a.price - b.price);
+ else if(f.sort === 'desc') r.sort((a,b) => b.price - a.price);
+ else r.sort((a,b) => (b.vip - a.vip) || (a.days - b.days));
+ return r;
+}
+const activeFilters = () => { const f = state.filters; return ['min','max','area','cond'].filter(k => f[k]).length + ['verified','deliv'].filter(k => f[k]).length + (f.furn && f.cat==='immo' ? 1 : 0); };
+
+/* ===== Composants ===== */
+function ph(a, extra=''){
+ const c = cat(a.cat);
+ return `<div class="ph" style="background:${c.bg};color:${c.fg}">${ic(c.i)}${extra}</div>`;
+}
+function favBtn(id){
+ const on = state.favs.has(id);
+ return `<button class="fav" data-act="fav" data-id="${id}" aria-pressed="${on}" aria-label="${on?'Retirer des favoris':'Ajouter aux favoris'}">${ic('heart')}</button>`;
+}
+function adCard(a, row){
+ const b = (a.urgent||a.vip) ? `<div class="bdg">${a.vip?'<span class="tag v">VIP</span>':''}${a.urgent?`<span class="tag u">${t('Urgent')}</span>`:''}</div>` : '';
+ return `<article class="card${row?' row':''}"><a class="cl" href="#/ad/${a.id}">${ph(a,b)}<div class="cb">${priceHtml(a)}<h3 class="tt">${esc(a.t)}</h3><p class="meta">${ic('pin','s')}${esc(place(a))}</p><p class="meta">${ago(a.days)}${seller(a.seller).v?` · <span class="vf">${ic('shield','s')}<span class="sr">${t('Vendeur vérifié')}</span></span>`:''}${a.deliv?` · ${ic('truck','s')}<span class="sr">Livraison</span>`:''}</p></div></a>${favBtn(a.id)}</article>`;
+}
+const sub = (title, extra='') => `<div class="sub"><button class="ib" data-act="back" aria-label="${t('Retour')}">${ic('back')}</button><h1 style="flex:1">${title}</h1>${extra}</div>`;
+const stateBox = (icon, title, text, btn='') => `<div class="state">${ic(icon)}<h2>${title}</h2><p>${text}</p>${btn}</div>`;
+const tips = () => `<div class="tip" role="note">${ic('shield')}<div><strong>${t('Conseils de sécurité')}</strong><ul><li>${t('Ne payez jamais à l’avance.')}</li><li>${t('Rencontrez-vous dans un lieu public.')}</li><li>Vérifiez l’article avant de payer.</li></ul></div></div>`;
+const errFor = k => state.errors[k] ? `<p class="err" id="e-${k}">${ic('alert','s')} ${state.errors[k]}</p>` : '';
+const inv = k => state.errors[k] ? ` aria-invalid="true" aria-describedby="e-${k}"` : '';
+const stars = (r, k) => `<span class="stars">${ic('star','s f')}${String(r).replace('.',',')}</span>${k!=null?` <span class="hint">(${k} avis)</span>`:''}`;
+
+function header(){
+ const c = state.city === 'all' ? t('Toutes les villes') : city(state.city).n;
+ const off = isOffline() ? `<div class="offl" role="alert">${ic('wifioff','s')} Hors ligne — certaines pages sont indisponibles</div>` : '';
+ return `<header class="top"><a class="logo" href="#/" aria-label="${BRAND}, ${t('Accueil')}">${LOGO}<span>${BRAND}</span></a>${state.lowData?'<span class="eco">Éco</span>':''}<button class="hbtn" data-act="sheet" data-v="city" aria-haspopup="dialog">${ic('pin','s')}<span>${c}</span></button><button class="hbtn" data-act="sheet" data-v="lang" aria-haspopup="dialog" aria-label="${t('Langue')}: ${state.lang}">${ic('globe','s')}<span>${state.lang.toUpperCase()}</span></button></header>${off}`;
+}
+function tabbar(){
+ const r = state.route[0], un = state.chats.reduce((n,c) => n + c.unread, 0);
+ const it = (h, icon, label, on, cls='', extra='') => `<li><a href="${h}" class="${cls}"${on?' aria-current="page"':''}>${cls?`<span class="c">${ic(icon)}</span>`:ic(icon)}<span>${label}${extra}</span></a></li>`;
+ return `<nav class="tabbar" aria-label="Navigation principale"><ul>${it('#/','home',t('Accueil'),r==='')}${it('#/mine/favs','heart',t('Favoris'),r==='mine'&&state.route[1]==='favs')}${it('#/post','plus',t('Vendre'),r==='post','sell')}${it('#/chats','chat',t('Messages'),r==='chats',''
+ ,un?` <span class="dot">${un}<span class="sr"> non lus</span></span>`:'')}${it('#/me','user',t('Profil'),r==='me'||(r==='mine'&&state.route[1]!=='favs'))}</ul></nav>`;
+}
+
+/* ===== Écrans ===== */
+function vHome(){
+ const near = ADS.filter(a => a.city === (state.city === 'all' ? 'bzv' : state.city)).slice(0,8);
+ const urg = ADS.filter(a => a.urgent);
+ const fresh = [...ADS].sort((a,b) => a.days - b.days).slice(0,8);
+ const sec = (title, link) => `<div class="sec"><h2>${title}</h2><a href="${link}" data-act="reset">${t('Tout voir')} ${ic('next','s')}</a></div>`;
+ return `<h1 class="sr">${BRAND} — petites annonces</h1>
+ <form class="search" data-form="search" role="search"><div class="field">${ic('search')}<label class="sr" for="hq">${t('Rechercher')}</label><input id="hq" type="search" name="q" placeholder="${t('Que cherchez-vous ?')}" autocomplete="off"></div><button class="btn p" type="submit">${t('Rechercher')}</button></form>
+ <h2 class="sec" style="margin-bottom:0">${t('Catégories')}</h2>
+ <div class="cats">${CATS.map(c => `<a class="cat" href="#/list/${c.id}" data-act="reset"><span class="ci" style="background:${c.bg};color:${c.fg}">${ic(c.i)}</span><span>${c.s}</span><small>${ADS.filter(a => a.cat===c.id).length} annonces</small></a>`).join('')}<a class="cat" href="#/list" data-act="reset"><span class="ci" style="background:var(--gl);color:var(--g2)">${ic('grid')}</span><span>${t('Tout voir')}</span><small>${ADS.length} annonces</small></a></div>
+ <div class="banner">${ic('wa')}<div style="flex:1"><strong>${t('Vendez plus vite avec WhatsApp')}</strong><p>${t('Publiez en 2 minutes, les acheteurs vous écrivent directement.')}</p></div><a class="btn y sm" href="#/post">${t('Vendre')}</a></div>
+ ${sec(t('Près de chez vous') + ' · ' + city(state.city==='all'?'bzv':state.city).n, '#/list')}
+ ${near.length ? `<div class="hs">${near.map(a => adCard(a)).join('')}</div>` : `<p class="hint">Pas encore d’annonces dans cette ville.</p>`}
+ ${sec(t('Urgent'), '#/list')}<div class="hs">${urg.map(a => adCard(a)).join('')}</div>
+ ${sec(t('Nouveautés'), '#/list')}<div class="grid">${fresh.map(a => adCard(a)).join('')}</div>
+ ${tips()}`;
+}
+function resultsHtml(){
+ const r = filtered();
+ if(!r.length) return stateBox('search', t('Aucune annonce trouvée'), 'Essayez un autre mot-clé, une autre ville ou retirez des filtres.', `<button class="btn" data-act="clearf">Effacer les filtres</button>`);
+ return `<p class="hint" style="margin-bottom:8px">${r.length} annonce${r.length>1?'s':''}</p><div class="${state.view==='grid'?'grid':'listv'}">${r.map(a => adCard(a, state.view==='list')).join('')}</div>`;
+}
+function vList(){
+ const f = state.filters, n = activeFilters();
+ return `${sub(f.cat ? cat(f.cat).n : 'Toutes les annonces')}
+ <div class="field">${ic('search')}<label class="sr" for="lq">${t('Rechercher')}</label><input id="lq" type="search" data-m="filters.q" data-live="1" value="${esc(f.q)}" placeholder="${t('Que cherchez-vous ?')}" autocomplete="off"></div>
+ <div class="chips" role="group" aria-label="${t('Catégories')}"><button class="chip${!f.cat?' on':''}" data-act="cat" data-v="" aria-pressed="${!f.cat}">Tout</button>${CATS.map(c => `<button class="chip${f.cat===c.id?' on':''}" data-act="cat" data-v="${c.id}" aria-pressed="${f.cat===c.id}">${c.s}</button>`).join('')}</div>
+ <div class="tools"><button class="chip${n?' on':''}" data-act="sheet" data-v="filters" aria-haspopup="dialog">${ic('filter','s')}${t('Filtres')}${n?` <span class="n">${n}</span>`:''}</button>
+ <label class="sr" for="srt">Trier</label><select id="srt" data-m="filters.sort" data-rr="1"><option value="new"${f.sort==='new'?' selected':''}>Plus récentes</option><option value="asc"${f.sort==='asc'?' selected':''}>Prix croissant</option><option value="desc"${f.sort==='desc'?' selected':''}>Prix décroissant</option></select>
+ <button class="ib" data-act="view" aria-label="${state.view==='grid'?'Afficher en liste':'Afficher en grille'}">${ic(state.view==='grid'?'list':'grid')}</button></div>
+ <div id="results" aria-live="polite">${resultsHtml()}</div>`;
+}
+function vAd(){
+ const a = ad(state.route[1]);
+ if(!a) return stateBox('alert','Annonce introuvable','Cette annonce a été retirée ou le lien est incorrect.',`<a class="btn p" href="#/">${t('Accueil')}</a>`);
+ const s = seller(a.seller), c = cat(a.cat);
+ const sim = ADS.filter(x => x.cat === a.cat && x.id !== a.id).slice(0,6);
+ const gal = Array.from({length:a.ph}, (_, i) => ph(a, `<span class="tag sd" style="position:absolute;right:8px;bottom:8px">${i+1}/${a.ph}</span>`)).join('');
+ return `<div class="narrow">${sub(`<span class="sr">${esc(a.t)}</span>`, favBtn(a.id).replace('class="fav"','class="fav" style="position:static;background:transparent"'))}
+ <div class="gal" role="group" aria-label="Photos de l’annonce (${a.ph})" tabindex="0">${gal}</div>
+ <div style="margin-top:12px">${a.vip?'<span class="tag v">VIP</span> ':''}${a.urgent?`<span class="tag u">${t('Urgent')}</span> `:''}${a.cond?`<span class="tag sd">${t(a.cond==='new'?'Neuf':'Occasion')}</span> `:''}${a.furn?'<span class="tag ok">Meublé · expatriés</span>':''}</div>
+ ${priceHtml(a, true)}<h2 style="font-size:1.2rem;font-weight:600">${esc(a.t)}</h2>
+ <p class="meta" style="margin-top:4px">${ic('clock','s')}${ago(a.days)} · ${c.n}${a.deliv?` · ${ic('truck','s')}Livraison possible`:''}</p>
+ <button class="btn y full" style="margin-top:12px" data-act="escrow" data-id="${a.id}">${ic('lock')}${t('Payer en sécurité')} (séquestre)</button>
+ <p class="hint" style="margin-top:4px">Votre argent est bloqué chez ${BRAND} et versé au vendeur seulement après réception.</p>
+ <section class="box"><h2>Caractéristiques</h2><dl class="specs">${a.specs.map(([k,v]) => `<dt>${esc(k)}</dt><dd>${esc(v)}</dd>`).join('')}</dl></section>
+ <section class="box"><h2>${t('Description')}</h2><p style="margin-top:6px">${esc(a.desc)}</p></section>
+ <section class="box"><h2>Localisation</h2><p style="margin-top:6px;font-weight:600">${ic('pin','s')} ${esc(place(a))}</p><p class="hint">Repère : ${esc(a.lm)}</p>
+  <div class="map" role="img" aria-label="Zone approximative : ${esc(place(a))}"><svg class="bgm" viewBox="0 0 300 130" preserveAspectRatio="none" aria-hidden="true"><path d="M0 40h300M0 90h300M60 0v130M150 0v130M240 0v130" stroke="#fff" stroke-width="6"/><path d="M0 110 300 20" stroke="#fff" stroke-width="10"/></svg>${ic('pin')}</div>
+  <p class="hint" style="margin-top:6px">Position approximative. L’adresse exacte est donnée par le vendeur.</p></section>
+ <section class="box"><a class="seller" href="#/seller/${s.id}"><span class="av">${initials(s.n)}</span><span style="flex:1"><strong>${esc(s.n)}</strong><br>${stars(s.r, s.k)}<br>${s.v?`<span class="vf">${ic('shield','s')}${t('Vendeur vérifié')}</span>`:'<span class="hint">Numéro non vérifié</span>'}</span>${ic('next')}</a></section>
+ ${tips()}
+ ${sim.length?`<div class="sec"><h2>${t('Annonces similaires')}</h2></div><div class="hs">${sim.map(x => adCard(x)).join('')}</div>`:''}
+ <button class="btn d full" style="margin-top:16px" data-act="sheet" data-v="report">${ic('flag')}${t('Signaler')} cette annonce</button></div>
+ <div class="actbar"><div><a class="btn w" href="${waLink(a)}" target="_blank" rel="noopener">${ic('wa')}WhatsApp<span class="sr"> — ${t('Écrire sur WhatsApp')}</span></a><a class="btn" href="tel:+${s.p}">${ic('call')}${t('Appeler')}</a><button class="btn" data-act="chatopen" data-id="${a.id}">${ic('chat')}${t('Discuter')}</button></div></div>`;
+}
+function vSeller(){
+ const s = seller(state.route[1]);
+ if(!s) return stateBox('alert','Vendeur introuvable','Ce profil n’existe plus.',`<a class="btn p" href="#/">${t('Accueil')}</a>`);
+ const list = ADS.filter(a => a.seller === s.id), i = SELLERS.indexOf(s);
+ const rev = [REVIEWS[i%4], REVIEWS[(i+1)%4], REVIEWS[(i+2)%4]];
+ return `<div class="narrow">${sub('Profil du vendeur')}
+ <div class="box" style="margin-top:0"><div class="seller"><span class="av lg">${initials(s.n)}</span><div><h2>${esc(s.n)}</h2>${stars(s.r, s.k)}<p>${s.v?`<span class="vf">${ic('shield','s')}${t('Vendeur vérifié')}</span>`:'<span class="hint">Numéro non vérifié</span>'}</p><p class="hint">${ic('pin','s')} ${esc((s.a?s.a+', ':'')+city(s.c).n)} · Membre depuis ${s.y}</p></div></div>
+ <button class="btn d sm" style="margin-top:12px" data-act="sheet" data-v="report">${ic('flag','s')}${t('Signaler')}</button></div>
+ <div class="sec"><h2>Annonces actives (${list.length})</h2></div><div class="grid">${list.map(a => adCard(a)).join('')}</div>
+ <div class="sec"><h2>Avis (${s.k})</h2></div>${rev.map(r => `<div class="li"><span class="av" style="width:40px;height:40px;background:#3A443E">${initials(r[0])}</span><div class="g"><strong>${r[0]}</strong> ${stars(r[1])}<p style="white-space:normal">${r[2]}</p></div></div>`).join('')}</div>`;
+}
+function vPost(){
+ const D = state.draft;
+ if(state.posted) return `<div class="narrow">${stateBox('check','Annonce envoyée','Votre annonce « ' + esc(state.posted) + ' » est en cours de modération. Elle sera visible sous peu.',
+  `<div class="foot"><a class="btn" href="#/mine" data-act="postdone">${t('Mes annonces')}</a><a class="btn p" href="#/" data-act="postdone">${t('Accueil')}</a></div>`)}</div>`;
+ const steps = ['Catégorie','Photos','Détails et prix','Localisation','Contact'];
+ const goods = !['immo','job','serv'].includes(D.cat);
+ let body = '';
+ if(D.step === 1) body = `<div class="pick" role="group" aria-label="Catégorie">${CATS.map(c => `<button type="button" data-act="pickcat" data-v="${c.id}" aria-pressed="${D.cat===c.id}"><span class="ci" style="width:36px;height:36px;border-radius:10px;display:grid;place-items:center;flex:none;background:${c.bg};color:${c.fg}">${ic(c.i)}</span>${c.n}</button>`).join('')}</div>${errFor('cat')}`;
+ if(D.step === 2) body = `<p class="hint">Jusqu’à 8 photos. Elles sont compressées sur votre téléphone pour économiser vos données.</p>
+  <div class="thumbs" style="margin-top:10px">${D.photos.map((p,i) => `<div class="th"><img src="${p.url}" alt="Photo ${i+1}"><button type="button" data-act="rmphoto" data-v="${i}" aria-label="Supprimer la photo ${i+1}"><span>${ic('x','s')}</span></button></div>`).join('')}
+  ${D.photos.length<8?`<label class="add" tabindex="0" role="button" aria-label="Ajouter des photos">${ic('camera')}<input class="sr" type="file" accept="image/*" multiple data-photos="1"></label>`:''}</div>
+  <p class="hint" style="margin-top:8px">${D.photos.length}/8 photos${D.photos.length?` · ${D.photos.reduce((n,p) => n+p.kb, 0)} Ko au total`:' — les annonces avec photos reçoivent plus de messages.'}</p>`;
+ if(D.step === 3) body = `<label class="l" for="pt">Titre de l’annonce</label><input id="pt" type="text" maxlength="70" data-m="draft.title" value="${esc(D.title)}" placeholder="Ex. : Samsung Galaxy A14 64 Go"${inv('title')}>${errFor('title')}
+  <label class="l" for="pp">${t('Prix')} (FCFA)</label><input id="pp" type="text" inputmode="numeric" data-m="draft.price" data-num="1" data-eur="1" value="${esc(D.price)}" placeholder="Ex. : 85000"${inv('price')}><p class="hint" id="eurh">${D.price?fcfa(+D.price)+' '+eur(+D.price):'Prix en francs CFA, sans centimes.'}</p>${errFor('price')}
+  ${goods?`<label class="l" for="pc">État</label><select id="pc" data-m="draft.cond"${inv('cond')}><option value="">Choisir…</option><option value="new"${D.cond==='new'?' selected':''}>${t('Neuf')}</option><option value="used"${D.cond==='used'?' selected':''}>${t('Occasion')}</option></select>${errFor('cond')}`:''}
+  <label class="l" for="pd">${t('Description')}</label><textarea id="pd" data-m="draft.desc" maxlength="1200" placeholder="État, accessoires, raison de la vente…"${inv('desc')}>${esc(D.desc)}</textarea>${errFor('desc')}`;
+ if(D.step === 4){ const ar = city(D.city).areas;
+  body = `<label class="l" for="lc">${t('Ville')}</label><select id="lc" data-m="draft.city" data-rr="1">${CITIES.map(c => `<option value="${c.id}"${D.city===c.id?' selected':''}>${c.n}</option>`).join('')}</select>
+  ${ar.length?`<label class="l" for="la">${t('Arrondissement')} <span class="hint">(facultatif)</span></label><select id="la" data-m="draft.area"><option value="">Je ne sais pas</option>${ar.map(x => `<option${D.area===x?' selected':''}>${x}</option>`).join('')}</select>`:''}
+  <label class="l" for="ll">Repère</label><input id="ll" type="text" data-m="draft.lm" value="${esc(D.lm)}" placeholder="Ex. : près du marché Total"${inv('lm')}><p class="hint">Pas d’adresse exacte ? Un repère connu suffit.</p>${errFor('lm')}`; }
+ if(D.step === 5) body = `<label class="l" for="ph">Numéro de téléphone</label><div class="pfx"><b>+242</b><input id="ph" type="tel" inputmode="numeric" maxlength="9" data-m="draft.phone" data-num="1" value="${esc(D.phone || (state.user?state.user.phone:''))}" placeholder="06 000 0000"${inv('phone')}></div>${errFor('phone')}
+  <label class="chk"><input type="checkbox" data-m="draft.wa"${D.wa?' checked':''}> Me contacter sur WhatsApp</label>
+  <label class="chk"><input type="checkbox" data-m="draft.call"${D.call?' checked':''}> Accepter les appels</label>
+  <div class="box"><strong>Récapitulatif</strong><p class="hint">${esc(cat(D.cat).n)} · ${esc(city(D.city).n)}${D.area?', '+esc(D.area):''}</p><p>${esc(D.title)}</p><p class="price">${fcfa(+D.price||0)}</p></div>
+  ${state.user?'':`<p class="hint" style="margin-top:8px">${ic('lock','s')} Un code SMS vous sera demandé pour vérifier votre numéro.</p>`}`;
+ return `<div class="narrow">${sub(D.editId?'Modifier l’annonce':t('Déposer une annonce'))}
+ <p class="hint" id="pstep">Étape ${D.step} sur 5 — <strong style="color:var(--ink)">${steps[D.step-1]}</strong></p>
+ <div class="prog" role="progressbar" aria-valuemin="1" aria-valuemax="5" aria-valuenow="${D.step}" aria-labelledby="pstep"><i style="width:${D.step*20}%"></i></div>
+ <form data-form="post" novalidate style="margin-top:12px">${body}
+ <div class="foot">${D.step>1?`<button type="button" class="btn" data-act="pprev">${t('Retour')}</button>`:''}<button type="submit" class="btn p">${D.step<5?t('Continuer'):(D.editId?'Enregistrer':t('Publier'))}</button></div>
+ <button type="button" class="btn full sm" style="margin-top:8px;border-color:transparent" data-act="savedraft">Enregistrer le brouillon</button></form></div>`;
+}
+function vLogin(){
+ const g = state.login;
+ return `<div class="narrow">${sub(t('Se connecter'))}
+ ${g.step===1?`<form data-form="phone" novalidate><p>Entrez votre numéro. Nous vous envoyons un code par SMS — pas de mot de passe.</p>
+  <label class="l" for="lp">Numéro de téléphone</label><div class="pfx"><b>+242</b><input id="lp" type="tel" inputmode="numeric" maxlength="9" autocomplete="tel-national" data-m="login.phone" data-num="1" value="${esc(g.phone)}" placeholder="06 000 0000"${inv('lphone')}></div>${errFor('lphone')}
+  <button class="btn p full" style="margin-top:16px" type="submit">Recevoir le code</button></form>`
+ :`<form data-form="otp" novalidate><p>Code envoyé au <strong>+242 ${esc(g.phone)}</strong>.</p><p class="tip" style="display:block">Prototype : utilisez le code <strong>${DEMO_OTP}</strong>.</p>
+  <label class="l" for="lo">Code à 4 chiffres</label><input id="lo" class="otp" type="text" inputmode="numeric" maxlength="4" autocomplete="one-time-code" data-m="login.code" data-num="1" value="${esc(g.code)}"${inv('lcode')}>${errFor('lcode')}
+  <button class="btn p full" style="margin-top:16px" type="submit">Vérifier</button>
+  <button class="btn full" style="margin-top:8px;border-color:transparent" type="button" data-act="relogin">Changer de numéro</button></form>`}</div>`;
+}
+function vMe(){
+ const u = state.user;
+ return `<div class="narrow"><h1 style="margin-bottom:12px">${t('Profil')}</h1>
+ ${u?`<div class="box" style="margin-top:0"><div class="seller"><span class="av lg">${ic('user')}</span><div><h2>Mon compte</h2><p>+242 ${esc(u.phone)}</p><span class="vf">${ic('shield','s')}Numéro vérifié</span></div></div></div>`
+   :`<div class="box" style="margin-top:0"><h2>Bienvenue sur ${BRAND}</h2><p class="hint">Connectez-vous avec votre numéro pour publier et suivre vos annonces.</p><button class="btn p full" style="margin-top:10px" data-act="login" data-v="#/me">${t('Se connecter')}</button></div>`}
+ <a class="li" href="#/mine">${ic('list')}<span class="g"><strong>${t('Mes annonces')}</strong></span>${ic('next')}</a>
+ <a class="li" href="#/mine/favs">${ic('heart')}<span class="g"><strong>${t('Favoris')}</strong> <span class="hint">(${state.favs.size})</span></span>${ic('next')}</a>
+ <button class="li" style="width:100%;text-align:left" data-act="sheet" data-v="lang">${ic('globe')}<span class="g"><strong>${t('Langue')}</strong> <span class="hint">${LANGS.find(l => l[0]===state.lang)[1]}</span></span>${ic('next')}</button>
+ <div class="box"><label class="chk"><input type="checkbox" data-m="lowData" data-rr="1"${state.lowData?' checked':''}> <span>Mode économie de données<br><small class="hint">Photos allégées, pas d’animations de chargement.</small></span></label>
+ <label class="chk"><input type="checkbox" data-m="offline" data-rr="1"${state.offline?' checked':''}> <span>Simuler « hors ligne »<br><small class="hint">Pour tester l’écran sans réseau (prototype).</small></span></label></div>
+ ${u?`<button class="btn d full" style="margin-top:12px" data-act="logout">${t('Se déconnecter')}</button>`:''}</div>`;
+}
+function vMine(){
+ const favs = state.route[1] === 'favs';
+ const tabs = `<div class="tabs" role="tablist"><button role="tab" aria-selected="${!favs}" data-act="nav" data-v="#/mine">${t('Mes annonces')}</button><button role="tab" aria-selected="${favs}" data-act="nav" data-v="#/mine/favs">${t('Favoris')} (${state.favs.size})</button></div>`;
+ if(favs){ const l = ADS.filter(a => state.favs.has(a.id));
+  return `<div class="narrow"><h1 class="sr">${t('Favoris')}</h1>${tabs}${l.length?`<div class="listv">${l.map(a => adCard(a,true)).join('')}</div>`:stateBox('heart','Aucun favori','Touchez le cœur sur une annonce pour la retrouver ici.',`<a class="btn p" href="#/list">Parcourir les annonces</a>`)}</div>`; }
+ if(!state.user) return `<div class="narrow"><h1 class="sr">${t('Mes annonces')}</h1>${tabs}${stateBox('lock','Connexion requise','Connectez-vous pour gérer vos annonces.',`<button class="btn p" data-act="login" data-v="#/mine">${t('Se connecter')}</button>`)}</div>`;
+ const st = {active:['ok','Active'],mod:['md','En modération'],sold:['sd','Vendue']};
+ return `<div class="narrow"><h1 class="sr">${t('Mes annonces')}</h1>${tabs}
+ ${state.myAds.length?state.myAds.map(m => `<div class="box"><div class="rw"><div class="ph" style="flex:0 0 72px;aspect-ratio:1;border-radius:10px;background:${cat(m.cat).bg};color:${cat(m.cat).fg}">${ic(cat(m.cat).i)}</div><div style="flex:1;min-width:0"><span class="tag ${st[m.status][0]}">${st[m.status][1]}</span>${m.boost?` <span class="tag v">${m.boost}</span>`:''}<p style="font-weight:600">${esc(m.t)}</p><p class="price">${fcfa(m.price)}</p><p class="hint">${m.views} vues</p></div></div>
+  ${m.status!=='sold'?`<div class="foot" style="margin-top:10px"><button class="btn y sm" data-act="nav" data-v="#/promote/${m.id}"${m.status!=='active'?' disabled':''}>${ic('up','s')}Remonter</button><button class="btn sm" data-act="editad" data-v="${m.id}">${ic('edit','s')}Modifier</button><button class="btn d sm" data-act="retire" data-v="${m.id}">${ic('trash','s')}Retirer</button></div>${m.status==='mod'?'<p class="hint" style="margin-top:6px">Le boost sera possible après validation.</p>':''}`:''}</div>`).join('')
+  :stateBox('list','Aucune annonce','Publiez votre première annonce en 2 minutes.',`<a class="btn p" href="#/post">${t('Déposer une annonce')}</a>`)}</div>`;
+}
+function vChats(){
+ return `<div class="narrow"><h1 style="margin-bottom:8px">${t('Messages')}</h1>
+ ${state.chats.length?state.chats.map(c => { const s = seller(c.seller), a = ad(c.ad), last = c.msgs[c.msgs.length-1];
+  return `<a class="li" href="#/chat/${c.id}"><span class="av">${initials(s.n)}</span><span class="g"><strong>${esc(s.n)}</strong><p class="hint">${esc(a.t)}</p><p>${last?esc((last.me?'Vous : ':'')+last.x):'Nouvelle conversation'}</p></span>${c.unread?`<span class="dot">${c.unread}<span class="sr"> non lu</span></span>`:`<span class="hint">${last?last.h:''}</span>`}</a>`; }).join('')
+ :stateBox('chat','Aucun message','Contactez un vendeur depuis une annonce.','')}</div>`;
+}
+function vChat(){
+ const c = state.chats.find(x => x.id === state.route[1]);
+ if(!c) return stateBox('alert','Conversation introuvable','',`<a class="btn p" href="#/chats">${t('Messages')}</a>`);
+ const s = seller(c.seller), a = ad(c.ad);
+ return `<div class="narrow">${sub(esc(s.n))}
+ <a class="li" style="margin:0 0 12px" href="#/ad/${a.id}"><span class="g"><p><strong>${esc(a.t)}</strong></p><p class="hint">${fcfa(a.price)}</p></span>${ic('next')}</a>
+ <div class="msgs" role="log" aria-label="Conversation">${c.msgs.map(m => `<div class="m${m.me?' me':''}"><span class="sr">${m.me?'Vous':esc(s.n)} : </span>${esc(m.x)}<small>${m.h}</small></div>`).join('') || '<p class="hint">Écrivez votre premier message.</p>'}</div></div>
+ <div class="composer"><div><div class="chips" style="padding:0 0 8px">${['Encore disponible ?','Le prix est négociable ?','Où peut-on se voir ?','Livraison possible ?'].map(q => `<button class="chip" data-act="quick" data-v="${t(q)}">${t(q)}</button>`).join('')}</div>
+ <form data-form="msg"><label class="sr" for="mi">Votre message</label><input id="mi" type="text" name="x" placeholder="Votre message…" autocomplete="off"><button class="btn p" type="submit" aria-label="Envoyer">${ic('next')}</button></form></div></div>`;
+}
+function vEscrow(){
+ const a = ad(state.route[1]);
+ if(!a) return stateBox('alert','Annonce introuvable','',`<a class="btn p" href="#/">${t('Accueil')}</a>`);
+ const d = state.deals[a.id], fee = Math.max(500, Math.round(a.price * ESCROW_FEE)), s = seller(a.seller);
+ const head = `<a class="li" style="margin:0" href="#/ad/${a.id}"><span class="g"><p><strong>${esc(a.t)}</strong></p><p class="hint">${esc(s.n)} · ${esc(place(a))}</p></span><strong>${fcfa(a.price)}</strong></a>`;
+ if(!d){ const cash = state.escrowPay === 'cash';
+  return `<div class="narrow">${sub('Paiement sécurisé')}${head}
+  <div class="tip">${ic('lock')}<div>Vous payez sur le compte séquestre de ${BRAND}. Le vendeur ne reçoit l’argent qu’après votre confirmation de réception.</div></div>
+  <form data-form="escrow"><fieldset style="border:0;padding:0;margin:14px 0 0"><legend style="font-weight:700">Moyen de paiement</legend>
+  ${PAY.map(p => `<label class="radio"><input type="radio" name="pay" value="${p.id}" data-m="escrowPay" data-rr="1"${state.escrowPay===p.id?' checked':''}> ${p.n}</label>`).join('')}
+  <label class="radio"><input type="radio" name="pay" value="cash" data-m="escrowPay" data-rr="1"${cash?' checked':''}> <span>Espèces à la rencontre<small>Sans séquestre : vous payez le vendeur en main propre.</small></span></label></fieldset>
+  ${cash?`${tips()}<a class="btn w full" style="margin-top:12px" href="${waLink(a)}" target="_blank" rel="noopener">${ic('wa')}Fixer le rendez-vous sur WhatsApp</a>`
+  :`<div class="box"><div class="sum"><span>Article</span><span>${fcfa(a.price)}</span></div><div class="sum"><span>Frais de protection (${ESCROW_FEE*100} %)</span><span>${fcfa(fee)}</span></div><div class="sum t"><span>Total</span><span>${fcfa(a.price+fee)}</span></div></div>
+  <button class="btn p full" style="margin-top:12px" type="submit">${ic('lock')}Payer ${fcfa(a.price+fee)}</button><p class="hint" style="margin-top:6px">Prototype : aucun paiement réel n’est effectué.</p>`}</form></div>`; }
+ const S = [['Payé','Votre argent est bloqué en séquestre.'],['Expédié','Le vendeur a remis ou envoyé l’article.'],['Reçu','Vous avez confirmé la réception.'],['Fonds versés','Le vendeur a été payé.']];
+ return `<div class="narrow">${sub('Suivi de la transaction')}${head}
+ <div class="box"><p class="hint">Payé avec ${PAY.find(p => p.id===d.pay).n}</p><ol class="tl">${S.map((x,i) => `<li class="${i<d.step?'done':i===d.step?'cur':''}"${i===d.step-1?' aria-current="step"':''}><span class="b">${i<d.step?ic('check','s'):i+1}</span><div><strong>${x[0]}</strong><p class="hint">${x[1]}</p></div></li>`).join('')}</ol>
+ ${d.step===1?`<button class="btn full" data-act="dealnext" data-id="${a.id}">Simuler : le vendeur a expédié</button>`:''}
+ ${d.step===2?`<button class="btn p full" data-act="dealnext" data-id="${a.id}">${ic('check')}J’ai bien reçu l’article</button><p class="hint" style="margin-top:6px">Ne confirmez qu’après avoir vérifié l’article.</p>`:''}
+ ${d.step===3?'<p class="hint">Versement au vendeur en cours…</p>':''}
+ ${d.step===4?`<p class="vf">${ic('check','s')}Transaction terminée. Merci !</p>`:''}</div>
+ ${d.step<4?`<button class="btn d full" style="margin-top:12px" data-act="sheet" data-v="report">${ic('flag')}Signaler un problème</button>`:`<a class="btn p full" style="margin-top:12px" href="#/">${t('Accueil')}</a>`}</div>`;
+}
+function vPromote(){
+ const m = state.myAds.find(x => x.id === state.route[1]);
+ if(!m) return stateBox('alert','Annonce introuvable','',`<a class="btn p" href="#/mine">${t('Mes annonces')}</a>`);
+ const P = state.promo, o = PROMOS.find(p => p.id === P.opt);
+ if(P.done) return `<div class="narrow">${stateBox('check','Promotion activée','« ' + esc(m.t) + ' » : option ' + o.n + ' appliquée.',`<a class="btn p" href="#/mine" data-act="promodone">${t('Mes annonces')}</a>`)}</div>`;
+ return `<div class="narrow">${sub('Booster l’annonce')}<p><strong>${esc(m.t)}</strong> · ${fcfa(m.price)}</p>
+ <form data-form="promo"><fieldset style="border:0;padding:0;margin:8px 0 0"><legend class="sr">Option</legend>${PROMOS.map(p => `<label class="radio"><input type="radio" name="opt" value="${p.id}" data-m="promo.opt" data-rr="1"${P.opt===p.id?' checked':''}> <span>${p.n}<small>${p.d}</small></span><span class="pr">${fcfa(p.p)}</span></label>`).join('')}</fieldset>
+ <fieldset style="border:0;padding:0;margin:16px 0 0"><legend style="font-weight:700">Payer avec</legend>${PAY.map(p => `<label class="radio"><input type="radio" name="pay" value="${p.id}" data-m="promo.pay"${P.pay===p.id?' checked':''}> ${p.n}</label>`).join('')}</fieldset>
+ <button class="btn p full" style="margin-top:16px" type="submit">Payer ${fcfa(o.p)}</button><p class="hint" style="margin-top:6px">Prototype : aucun paiement réel n’est effectué.</p></form></div>`;
+}
+function vOffline(){
+ return stateBox('wifioff','Pas de connexion','Vérifiez votre réseau. Vos favoris et votre brouillon restent disponibles.',
+  `<div><button class="btn p" data-act="retry">Réessayer</button></div>${state.offline?'<div><button class="btn sm" data-act="stopsim">Arrêter la simulation</button></div>':''}`);
+}
+function skeleton(){
+ if(state.lowData) return `<p class="state" role="status">Chargement…</p>`;
+ return `<div role="status" aria-label="Chargement"><div class="sk" style="height:48px"></div><div class="grid" style="margin-top:14px">${'<div><div class="sk" style="aspect-ratio:4/3"></div><div class="sk" style="height:16px;margin-top:8px;width:70%"></div><div class="sk" style="height:12px;margin-top:6px;width:45%"></div></div>'.repeat(6)}</div></div>`;
+}
+const NET = ['', 'list', 'ad', 'seller'];
+const isOffline = () => state.offline || (typeof navigator !== 'undefined' && navigator.onLine === false);
+function view(){
+ const r = state.route[0];
+ if(NET.includes(r) && isOffline()) return vOffline();
+ return ({'':vHome,list:vList,ad:vAd,seller:vSeller,post:vPost,login:vLogin,me:vMe,mine:vMine,chats:vChats,chat:vChat,escrow:vEscrow,promote:vPromote}[r] || (() => stateBox('alert','Page introuvable','Ce lien ne mène nulle part.',`<a class="btn p" href="#/">${t('Accueil')}</a>`)))();
+}
+
+/* ===== Feuilles modales ===== */
+function sheet(){
+ const s = state.sheet; if(!s) return '';
+ const wrap = (title, body) => `<div class="overlay" data-act="closesheet" data-self="1"><div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sht"><div class="sh"><h2 id="sht">${title}</h2><button class="ib" data-act="closesheet" aria-label="Fermer">${ic('x')}</button></div>${body}</div></div>`;
+ if(s === 'lang') return wrap(t('Langue'), LANGS.map(([k,n]) => `<button class="opt" data-act="lang" data-v="${k}" aria-pressed="${state.lang===k}">${n}${state.lang===k?`<span class="ck">${ic('check')}</span>`:''}</button>`).join('') + '<p class="hint" style="margin-top:8px">Les annonces restent dans la langue du vendeur.</p>');
+ if(s === 'city') return wrap(t('Ville'), [{id:'all',n:t('Toutes les villes')}, ...CITIES].map(c => `<button class="opt" data-act="city" data-v="${c.id}" aria-pressed="${state.city===c.id}">${ic('pin','s')}${c.n}${state.city===c.id?`<span class="ck">${ic('check')}</span>`:''}</button>`).join(''));
+ if(s === 'report') return wrap(t('Signaler'), `<form data-form="report"><fieldset style="border:0;padding:0;margin:0"><legend class="hint">Pourquoi signalez-vous cette annonce ?</legend>${['Arnaque ou demande de paiement à l’avance','Article faux ou contrefait','Annonce en double','Contenu interdit ou offensant','Autre'].map((x,i) => `<label class="radio"><input type="radio" name="why" value="${i}"${i===0?' checked':''}> ${x}</label>`).join('')}</fieldset><label class="l" for="rd">Détails <span class="hint">(facultatif)</span></label><textarea id="rd" name="d" style="min-height:70px"></textarea><button class="btn p full" style="margin-top:12px" type="submit">Envoyer le signalement</button></form>`);
+ if(s === 'filters'){ const f = state.filters, ar = state.city !== 'all' ? city(state.city).areas : [];
+  return wrap(t('Filtres'), `<label class="l" for="fc">${t('Ville')}</label><select id="fc" data-m="city" data-rr="1"><option value="all">${t('Toutes les villes')}</option>${CITIES.map(c => `<option value="${c.id}"${state.city===c.id?' selected':''}>${c.n}</option>`).join('')}</select>
+  ${ar.length?`<label class="l" for="fa">${t('Arrondissement')}</label><select id="fa" data-m="filters.area" data-rr="1"><option value="">Tous</option>${ar.map(x => `<option${f.area===x?' selected':''}>${x}</option>`).join('')}</select>`:''}
+  <p class="l" id="fpl">${t('Prix')} (FCFA)</p><div class="two" role="group" aria-labelledby="fpl"><div><label class="sr" for="fmin">Prix minimum</label><input id="fmin" type="text" inputmode="numeric" data-m="filters.min" data-num="1" data-cnt="1" value="${esc(f.min)}" placeholder="Min"></div><div><label class="sr" for="fmax">Prix maximum</label><input id="fmax" type="text" inputmode="numeric" data-m="filters.max" data-num="1" data-cnt="1" value="${esc(f.max)}" placeholder="Max"></div></div>
+  <label class="l" for="fcd">État</label><select id="fcd" data-m="filters.cond" data-rr="1"><option value="">Tous</option><option value="new"${f.cond==='new'?' selected':''}>${t('Neuf')}</option><option value="used"${f.cond==='used'?' selected':''}>${t('Occasion')}</option></select>
+  <label class="chk"><input type="checkbox" data-m="filters.verified" data-rr="1"${f.verified?' checked':''}> Vendeurs vérifiés uniquement</label>
+  <label class="chk"><input type="checkbox" data-m="filters.deliv" data-rr="1"${f.deliv?' checked':''}> Avec livraison</label>
+  ${f.cat==='immo'?`<label class="chk"><input type="checkbox" data-m="filters.furn" data-rr="1"${f.furn?' checked':''}> Meublé / pour expatriés</label>`:'<p class="hint">Le filtre « Meublé / pour expatriés » apparaît dans la catégorie Immobilier.</p>'}
+  <div class="foot"><button class="btn" data-act="clearf">Effacer</button><button class="btn p" data-act="closesheet">Voir <span id="fcount">${filtered().length}</span> annonces</button></div>`); }
+ return '';
+}
+
+/* ===== Rendu ===== */
+const NOBAR = ['ad','chat','post','login','escrow','promote'];
+function render(){
+ const app = $('#app'); if(!app) return;
+ const fid = document.activeElement && document.activeElement.id;
+ const r = state.route[0];
+ app.className = (state.lowData ? 'lowd ' : '') + (r === 'ad' ? 'act' : NOBAR.includes(r) ? 'nobar' : '');
+ app.innerHTML = header() + `<main id="main" tabindex="-1">${state.loading ? skeleton() : view()}</main>` + (NOBAR.includes(r) ? '' : tabbar()) + sheet();
+ document.documentElement.lang = state.lang === 'fr' ? 'fr' : state.lang;
+ if(state.sheet){ const f = (fid && document.getElementById(fid)) || app.querySelector('.sheet button, .sheet select, .sheet input'); f && f.focus(); }
+ else if(fid && document.getElementById(fid)) document.getElementById(fid).focus({preventScroll:true});
+}
+function onRoute(){
+ const parts = (location.hash.replace(/^#\/?/, '') || '').split('/').map(decodeURIComponent);
+ state.route = parts; state.sheet = null; state.errors = {};
+ if(parts[0] === 'list' && parts[1] !== undefined) state.filters.cat = CATS.some(c => c.id === parts[1]) ? parts[1] : '';
+ if(parts[0] === 'chat'){ const c = state.chats.find(x => x.id === parts[1]); if(c) c.unread = 0; }
+ if(parts[0] === 'promote') state.promo.done = false;
+ state.loading = NET.includes(parts[0]) && !isOffline();
+ render(); window.scrollTo(0, 0);
+ const m = $('#main'); m && m.focus({preventScroll:true});
+ if(state.loading) setTimeout(() => { state.loading = false; render(); }, state.lowData ? 150 : 450);
+}
+
+/* ===== Actions ===== */
+function validateStep(){
+ const D = state.draft, e = {};
+ if(D.step === 1 && !D.cat) e.cat = 'Choisissez une catégorie.';
+ if(D.step === 3){
+  if(D.title.trim().length < 5) e.title = 'Le titre doit contenir au moins 5 caractères.';
+  if(!(+D.price > 0)) e.price = 'Indiquez un prix en FCFA.';
+  if(!['immo','job','serv'].includes(D.cat) && !D.cond) e.cond = 'Précisez l’état de l’article.';
+  if(D.desc.trim().length < 10) e.desc = 'Décrivez l’article en quelques mots (10 caractères minimum).';
+ }
+ if(D.step === 4 && D.lm.trim().length < 3) e.lm = 'Indiquez au moins un repère connu.';
+ if(D.step === 5){ if(!D.phone && state.user) D.phone = state.user.phone; if(!/^0[456]\d{7}$/.test(D.phone)) e.phone = 'Numéro à 9 chiffres commençant par 04, 05 ou 06.'; }
+ state.errors = e; return !Object.keys(e).length;
+}
+function focusFirstError(){ const el = document.querySelector('[aria-invalid=true]') || document.querySelector('.err'); el && el.focus && el.focus(); }
+function publish(){
+ const D = state.draft;
+ if(!state.user){ state.login = {step:1,phone:D.phone,code:'',ret:'#/post'}; toast('Vérifiez votre numéro pour publier.'); return go('#/login'); }
+ if(D.editId){ const m = state.myAds.find(x => x.id === D.editId); if(m){ m.t = D.title.trim(); m.price = +D.price; m.cat = D.cat; m.status = 'mod'; m.d = {cond:D.cond,desc:D.desc,city:D.city,area:D.area,lm:D.lm}; } toast('Annonce modifiée, en modération.'); state.draft = emptyDraft(); return go('#/mine'); }
+ state.myAds.unshift({id:'m' + Date.now(), t:D.title.trim(), cat:D.cat, price:+D.price, status:'mod', views:0, boost:null, d:{cond:D.cond,desc:D.desc,city:D.city,area:D.area,lm:D.lm}});
+ state.posted = D.title.trim(); state.draft = emptyDraft();
+ try{ localStorage.removeItem('tekisa_draft'); }catch(_){}
+ render(); window.scrollTo(0,0);
+}
+function addPhotos(files){
+ const D = state.draft, room = 8 - D.photos.length;
+ if(files.length > room) toast('Maximum 8 photos.');
+ [...files].slice(0, room).forEach(f => { const rd = new FileReader();
+  rd.onload = () => { const im = new Image(); im.onload = () => {
+   const k = Math.min(1, 1024 / Math.max(im.width, im.height)), c = document.createElement('canvas');
+   c.width = Math.round(im.width * k); c.height = Math.round(im.height * k);
+   c.getContext('2d').drawImage(im, 0, 0, c.width, c.height);
+   const url = c.toDataURL('image/jpeg', .7);
+   if(D.photos.length < 8){ D.photos.push({url, kb:Math.round(url.length * .75 / 1024)}); render(); } };
+   im.onerror = () => toast('Photo illisible, essayez-en une autre.'); im.src = rd.result; };
+  rd.readAsDataURL(f); });
+}
+function sendMsg(x){
+ const c = state.chats.find(k => k.id === state.route[1]); x = (x||'').trim(); if(!c || !x) return;
+ if(!state.user){ state.login = {step:1,phone:'',code:'',ret:location.hash}; toast('Connectez-vous pour écrire.'); return go('#/login'); }
+ const h = new Date().toTimeString().slice(0,5);
+ c.msgs.push({me:1,x,h}); render(); window.scrollTo(0, document.body.scrollHeight); const i = $('#mi'); i && i.focus();
+ setTimeout(() => { c.msgs.push({me:0,x:'Merci pour votre message, je vous réponds vite. Vous pouvez aussi m’écrire sur WhatsApp.',h}); if(state.route[0]==='chat' && state.route[1]===c.id){ render(); window.scrollTo(0, document.body.scrollHeight); } else c.unread++; }, 900);
+}
+const ACT = {
+ back(){ history.length > 1 ? history.back() : go('#/'); },
+ nav(el){ go(el.dataset.v); },
+ fav(el){ const id = +el.dataset.id, on = !state.favs.has(id); on ? state.favs.add(id) : state.favs.delete(id);
+  document.querySelectorAll(`.fav[data-id="${id}"]`).forEach(b => { b.setAttribute('aria-pressed', on); b.setAttribute('aria-label', on ? 'Retirer des favoris' : 'Ajouter aux favoris'); });
+  toast(on ? 'Ajouté aux favoris' : 'Retiré des favoris'); if(state.route[0]==='mine') render(); },
+ sheet(el){ state.sheet = el.dataset.v; render(); },
+ closesheet(el, e){ if(el.dataset.self && e.target !== el) return; state.sheet = null; render(); },
+ lang(el){ state.lang = el.dataset.v; state.sheet = null; render(); },
+ city(el){ state.city = el.dataset.v; state.filters.area = ''; state.sheet = null; render(); },
+ cat(el){ state.filters.cat = el.dataset.v; if(el.dataset.v !== 'immo') state.filters.furn = false; go('#/list' + (el.dataset.v ? '/' + el.dataset.v : '')); },
+ reset(){ state.filters = emptyFilters(); },
+ clearf(){ const c = state.filters.cat; state.filters = emptyFilters(); state.filters.cat = c; render(); },
+ view(){ state.view = state.view === 'grid' ? 'list' : 'grid'; render(); },
+ retry(){ if(isOffline()) toast('Toujours hors ligne.'); else onRoute(); },
+ stopsim(){ state.offline = false; onRoute(); },
+ pickcat(el){ state.draft.cat = el.dataset.v; state.errors = {}; render(); },
+ pprev(){ state.draft.step--; state.errors = {}; render(); window.scrollTo(0,0); },
+ rmphoto(el){ state.draft.photos.splice(+el.dataset.v, 1); render(); },
+ savedraft(){ const {photos, ...d} = state.draft; try{ localStorage.setItem('tekisa_draft', JSON.stringify(d)); }catch(_){} toast('Brouillon enregistré' + (photos.length ? ' (photos gardées jusqu’à la fermeture de la page)' : '')); },
+ postdone(){ state.posted = null; },
+ promodone(){ state.promo.done = false; },
+ login(el){ state.login = {step:1,phone:'',code:'',ret:el.dataset.v || '#/me'}; go('#/login'); },
+ relogin(){ state.login.step = 1; state.login.code = ''; state.errors = {}; render(); },
+ logout(){ state.user = null; toast('Vous êtes déconnecté.'); render(); },
+ chatopen(el){ const a = ad(el.dataset.id); let c = state.chats.find(x => x.ad === a.id);
+  if(!c){ c = {id:'c' + Date.now(), seller:a.seller, ad:a.id, unread:0, msgs:[]}; state.chats.unshift(c); } go('#/chat/' + c.id); },
+ quick(el){ sendMsg(el.dataset.v); },
+ escrow(el){ go('#/escrow/' + el.dataset.id); },
+ dealnext(el){ const d = state.deals[el.dataset.id]; d.step++; render();
+  if(d.step === 3) setTimeout(() => { d.step = 4; toast('Fonds versés au vendeur.'); if(state.route[0]==='escrow') render(); }, 1200); },
+ editad(el){ const m = state.myAds.find(x => x.id === el.dataset.v);
+  state.draft = Object.assign(emptyDraft(), {editId:m.id, cat:m.cat, title:m.t, price:String(m.price), step:3, phone:state.user?state.user.phone:''}, m.d||{}); state.posted = null; go('#/post'); },
+ retire(el){ state.myAds = state.myAds.filter(x => x.id !== el.dataset.v); toast('Annonce retirée.'); render(); }
+};
+const FORMS = {
+ search(f){ state.filters = emptyFilters(); state.filters.q = f.q.value; go('#/list'); },
+ post(){ if(!validateStep()){ render(); return focusFirstError(); }
+  if(state.draft.step < 5){ state.draft.step++; render(); window.scrollTo(0,0); const m = $('#main'); m && m.focus({preventScroll:true}); } else publish(); },
+ phone(){ if(!/^0[456]\d{7}$/.test(state.login.phone)){ state.errors = {lphone:'Numéro à 9 chiffres commençant par 04, 05 ou 06.'}; render(); return focusFirstError(); }
+  state.errors = {}; state.login.step = 2; render(); toast('Code envoyé par SMS (démo : ' + DEMO_OTP + ')'); const o = $('#lo'); o && o.focus(); },
+ otp(){ if(state.login.code !== DEMO_OTP){ state.errors = {lcode:'Code incorrect. Réessayez.'}; render(); return focusFirstError(); }
+  state.user = {phone:state.login.phone, verified:true}; toast('Numéro vérifié. Bienvenue !'); go(state.login.ret || '#/me'); },
+ msg(f){ sendMsg(f.x.value); },
+ report(){ state.sheet = null; render(); toast('Merci. Notre équipe examine votre signalement.'); },
+ escrow(){ const id = state.route[1];
+  if(!state.user){ state.login = {step:1,phone:'',code:'',ret:'#/escrow/' + id}; toast('Connectez-vous pour payer.'); return go('#/login'); }
+  if(state.escrowPay === 'cash') return;
+  state.deals[id] = {step:1, pay:state.escrowPay}; render(); window.scrollTo(0,0); toast('Paiement reçu en séquestre.'); },
+ promo(){ if(!state.user){ state.login = {step:1,phone:'',code:'',ret:location.hash}; return go('#/login'); }
+  const m = state.myAds.find(x => x.id === state.route[1]), o = PROMOS.find(p => p.id === state.promo.opt);
+  if(o.id === 'up'){ state.myAds = [m, ...state.myAds.filter(x => x !== m)]; m.boost = 'Remontée'; } else m.boost = o.n;
+  state.promo.done = true; render(); }
+};
+
+/* ===== Démarrage ===== */
+function init(){
+ try{ const d = JSON.parse(localStorage.getItem('tekisa_draft') || 'null'); if(d) state.draft = Object.assign(emptyDraft(), d, {photos:[]}); }catch(_){}
+ document.addEventListener('click', e => { const el = e.target.closest('[data-act]'); if(!el || el.disabled) return; const fn = ACT[el.dataset.act]; if(fn) fn(el, e); });
+ document.addEventListener('submit', e => { const f = e.target.closest('[data-form]'); if(!f) return; e.preventDefault(); FORMS[f.dataset.form](f); });
+ document.addEventListener('input', e => { const el = e.target;
+  if(el.dataset.photos) return;
+  if(!el.dataset.m || el.type === 'checkbox' || el.type === 'radio' || el.tagName === 'SELECT') return;
+  if(el.dataset.num) el.value = el.value.replace(/\D/g, '');
+  setPath(state, el.dataset.m, el.value);
+  if(el.dataset.live){ const r = $('#results'); if(r) r.innerHTML = resultsHtml(); }
+  if(el.dataset.cnt){ const c = $('#fcount'); if(c) c.textContent = filtered().length; }
+  if(el.dataset.eur){ const h = $('#eurh'); if(h) h.textContent = el.value ? fcfa(+el.value) + ' ' + eur(+el.value) : 'Prix en francs CFA, sans centimes.'; } });
+ document.addEventListener('change', e => { const el = e.target;
+  if(el.dataset.photos){ addPhotos(el.files); return; }
+  if(!el.dataset.m) return;
+  if(el.type === 'checkbox') setPath(state, el.dataset.m, el.checked);
+  else if(el.type === 'radio' || el.tagName === 'SELECT') setPath(state, el.dataset.m, el.value);
+  else return;
+  if(el.dataset.m === 'city') state.filters.area = '';
+  if(el.dataset.m === 'draft.city') state.draft.area = '';
+  if(el.dataset.m === 'offline'){ return onRoute(); }
+  if(el.dataset.rr) render(); });
+ document.addEventListener('keydown', e => { if(e.key === 'Escape' && state.sheet){ state.sheet = null; render(); }
+  if((e.key === 'Enter' || e.key === ' ') && e.target.classList && e.target.classList.contains('add')){ e.preventDefault(); e.target.querySelector('input').click(); } });
+ window.addEventListener('hashchange', onRoute);
+ window.addEventListener('online', onRoute); window.addEventListener('offline', onRoute);
+ onRoute();
+}
+if(typeof document !== 'undefined') init();
+if(typeof module !== 'undefined') module.exports = {state, view, sheet, header, tabbar, filtered, validateStep, ADS, CATS, SELLERS, emptyFilters, fcfa, eur};
+</script>
+</body>
+</html>
